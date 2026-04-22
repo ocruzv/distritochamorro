@@ -1,0 +1,255 @@
+---
+// Página para generar la imagen Open Graph (1200×630).
+// Ver /og en desarrollo; el PNG final vive en /public/og.png.
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.png';
+---
+
+<!doctype html>
+<html lang="es-MX">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Distrito Chamorro — OG</title>
+		<meta name="robots" content="noindex, nofollow" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Hanken+Grotesk:wght@500;600;700&display=swap"
+		/>
+	</head>
+	<body>
+		<main class="og">
+			<!-- Texturas y glows -->
+			<div class="tex tex-noise" aria-hidden="true"></div>
+			<div class="tex glow-consome" aria-hidden="true"></div>
+			<div class="tex glow-barro" aria-hidden="true"></div>
+
+			<div class="og-inner">
+				<header class="og-top">
+					<div class="og-eyebrow">
+						<span class="og-pin">GDL</span>
+						<span>Chamorrería · Cocina tapatía</span>
+					</div>
+					<Image
+						src={logo}
+						alt=""
+						widths={[200, 320]}
+						sizes="200px"
+						class="og-logo"
+						aria-hidden="true"
+					/>
+				</header>
+
+				<div class="og-body">
+					<h1 class="og-title">
+						<span class="og-line">Chamorro</span>
+						<span class="og-line og-line-2">
+							que <em>empodera</em>
+						</span>
+					</h1>
+
+					<p class="og-sub">
+						Tacos, tortas y chamorro en consomé. Hecho en Guadalajara.
+					</p>
+				</div>
+
+				<footer class="og-bottom">
+					<div class="og-bottom-col">
+						<span class="og-k">Dónde</span>
+						<span class="og-v">Isla Cozumel 2670 · Jardines de la Cruz</span>
+					</div>
+					<div class="og-bottom-col">
+						<span class="og-k">Abrimos</span>
+						<span class="og-v">Mié a Dom · 9:00 — 16:00</span>
+					</div>
+					<div class="og-bottom-col og-bottom-domain">
+						<span class="og-k">Online</span>
+						<span class="og-v">distritochamorro.com</span>
+					</div>
+				</footer>
+			</div>
+		</main>
+
+		<style is:global>
+			html,
+			body {
+				margin: 0;
+				padding: 0;
+			}
+			body {
+				background: #F2E6D8;
+				font-family: 'Hanken Grotesk', sans-serif;
+			}
+			/* Hide the Astro dev toolbar cuando renderizamos /og para screenshot */
+			astro-dev-toolbar {
+				display: none !important;
+			}
+		</style>
+
+		<style>
+			.og {
+				position: relative;
+				width: 1200px;
+				height: 630px;
+				overflow: hidden;
+				background: #F2E6D8;
+				color: #2B1A14;
+			}
+
+			.tex {
+				position: absolute;
+				inset: 0;
+				pointer-events: none;
+			}
+			.glow-consome {
+				background: radial-gradient(
+					720px 460px at 88% -10%,
+					rgba(168, 50, 30, 0.22) 0%,
+					transparent 60%
+				);
+			}
+			.glow-barro {
+				background: radial-gradient(
+					640px 440px at -6% 110%,
+					rgba(140, 58, 33, 0.22) 0%,
+					transparent 60%
+				);
+			}
+			.tex-noise {
+				background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch' seed='3'/><feColorMatrix values='0 0 0 0 0.17  0 0 0 0 0.10  0 0 0 0 0.07  0 0 0 0.06 0'/></filter><rect width='220' height='220' filter='url(%23p)'/></svg>");
+				background-size: 220px 220px;
+				mix-blend-mode: multiply;
+				opacity: 0.9;
+			}
+
+			.og-inner {
+				position: relative;
+				height: 100%;
+				padding: 56px 72px 48px;
+				display: grid;
+				grid-template-rows: auto 1fr auto;
+				gap: 20px;
+				box-sizing: border-box;
+			}
+
+			.og-top {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				gap: 24px;
+			}
+			.og-eyebrow {
+				display: inline-flex;
+				align-items: center;
+				gap: 14px;
+				font-family: 'Hanken Grotesk', sans-serif;
+				font-weight: 700;
+				font-size: 18px;
+				letter-spacing: 0.2em;
+				text-transform: uppercase;
+				color: #4A332A;
+			}
+			.og-pin {
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				padding: 6px 14px;
+				background: #8C3A21;
+				color: #F2E6D8;
+				border-radius: 6px;
+				letter-spacing: 0.18em;
+				font-weight: 800;
+				font-size: 18px;
+			}
+			.og-logo {
+				height: 78px;
+				width: auto;
+			}
+
+			.og-body {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				gap: 22px;
+				padding-bottom: 8px;
+			}
+
+			.og-title {
+				font-family: 'Big Shoulders Display', sans-serif;
+				font-weight: 900;
+				font-size: 142px;
+				line-height: 0.88;
+				letter-spacing: -0.005em;
+				text-transform: uppercase;
+				color: #2B1A14;
+				margin: 0;
+			}
+			.og-line {
+				display: block;
+			}
+			.og-line-2 {
+				color: #8C3A21;
+				padding-left: 64px;
+			}
+			.og-line em {
+				font-style: normal;
+				position: relative;
+				display: inline-block;
+				isolation: isolate;
+			}
+			.og-line em::after {
+				content: '';
+				position: absolute;
+				left: -4px;
+				right: -4px;
+				bottom: 10px;
+				height: 10px;
+				background: #A8321E;
+				z-index: -1;
+				transform: skewY(-1.5deg);
+				opacity: 0.95;
+			}
+
+			.og-sub {
+				font-family: 'Hanken Grotesk', sans-serif;
+				font-size: 26px;
+				font-weight: 500;
+				line-height: 1.35;
+				color: #4A332A;
+				max-width: 640px;
+				margin: 0;
+			}
+
+			.og-bottom {
+				display: grid;
+				grid-template-columns: 1.4fr 1fr 1fr;
+				gap: 32px;
+				padding-top: 20px;
+				border-top: 1px solid #D9C8B2;
+			}
+			.og-bottom-col {
+				display: grid;
+				gap: 4px;
+			}
+			.og-k {
+				font-family: 'Hanken Grotesk', sans-serif;
+				font-size: 13px;
+				font-weight: 700;
+				letter-spacing: 0.22em;
+				text-transform: uppercase;
+				color: #8C3A21;
+			}
+			.og-v {
+				font-family: 'Big Shoulders Display', sans-serif;
+				font-weight: 800;
+				font-size: 22px;
+				color: #2B1A14;
+				letter-spacing: 0.01em;
+			}
+			.og-bottom-domain .og-v {
+				color: #8C3A21;
+			}
+		</style>
+	</body>
+</html>
