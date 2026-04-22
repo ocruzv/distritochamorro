@@ -50,12 +50,13 @@ const combos = [
 	{ name: 'Combo chamorro', includes: 'chamorro + agua chica o refresco', price: 140 },
 ];
 
-const galeria = [
-	{ tag: 'Plato estrella', label: 'Chamorro en consomé', hue: '--terracota' },
-	{ tag: 'Tacos', label: 'Dorados, recién hechos', hue: '--consome' },
-	{ tag: 'Torta', label: 'Torta ahogada', hue: '--terracota-hondo' },
-	{ tag: 'El lugar', label: 'Barrio bien hecho', hue: '--cafe' },
-];
+// TODO: re-enable galería cuando tengamos fotos reales del local y los platos.
+// const galeria = [
+// 	{ tag: 'Plato estrella', label: 'Chamorro en consomé', hue: '--terracota' },
+// 	{ tag: 'Tacos', label: 'Dorados, recién hechos', hue: '--consome' },
+// 	{ tag: 'Torta', label: 'Torta ahogada', hue: '--terracota-hondo' },
+// 	{ tag: 'El lugar', label: 'Barrio bien hecho', hue: '--cafe' },
+// ];
 
 const direccion = {
 	calle: 'Isla Cozumel 2670',
@@ -94,6 +95,7 @@ const mapaPoi = [
 			<a href="#menu">Menú</a>
 			<a href="#horarios">Horarios</a>
 			<a href="#lugar">Lugar</a>
+			{/* TODO: re-enable WhatsApp "Pedir" CTA cuando tengamos el número real.
 			<a
 				href="https://wa.me/523312000000?text=Hola%2C%20quiero%20pedir%20chamorro"
 				class="nav-cta"
@@ -105,6 +107,7 @@ const mapaPoi = [
 				</svg>
 				Pedir
 			</a>
+			*/}
 		</nav>
 	</header>
 
@@ -379,9 +382,7 @@ const mapaPoi = [
 			</div>
 		</section>
 
-		<!-- =========================================================
-			GALERÍA
-		========================================================== -->
+		{/* TODO: re-enable galería cuando tengamos fotos reales del local y los platos.
 		<section class="galeria" aria-labelledby="galeria-heading">
 			<div class="galeria-head">
 				<span class="section-num">№ 03 · El barrio</span>
@@ -402,13 +403,14 @@ const mapaPoi = [
 			</div>
 			<p class="galeria-nota">Fotos próximamente</p>
 		</section>
+		*/}
 
 		<!-- =========================================================
 			UBICACIÓN
 		========================================================== -->
 		<section class="lugar" id="lugar" aria-labelledby="lugar-heading">
 			<div class="lugar-head">
-				<span class="section-num">№ 04 · Ubicación</span>
+				<span class="section-num">№ 03 · Ubicación</span>
 				<h2 id="lugar-heading" class="lugar-titulo">Vente al distrito</h2>
 			</div>
 
@@ -543,9 +545,11 @@ const mapaPoi = [
 						<li>
 							<a href="tel:+523312000000">+52 33 1200 0000</a>
 						</li>
+						{/* TODO: re-enable WhatsApp cuando tengamos el número oficial.
 						<li>
 							<a href="https://wa.me/523312000000" target="_blank" rel="noopener">WhatsApp</a>
 						</li>
+						*/}
 						<li>
 							<a href="mailto:hola@distritochamorro.mx">hola@distritochamorro.mx</a>
 						</li>
@@ -600,7 +604,9 @@ const mapaPoi = [
 				<ul class="pie-redes">
 					<li><a href="https://instagram.com/distritochamorro" target="_blank" rel="noopener">Instagram</a></li>
 					<li><a href="https://tiktok.com/@distritochamorro" target="_blank" rel="noopener">TikTok</a></li>
+					{/* TODO: re-enable WhatsApp cuando tengamos el número oficial.
 					<li><a href="https://wa.me/523312000000" target="_blank" rel="noopener">WhatsApp</a></li>
+					*/}
 				</ul>
 			</div>
 		</div>
