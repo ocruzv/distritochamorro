@@ -1,23 +1,184 @@
+---
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const {
+	title = 'Distrito Chamorro — Chamorro que empodera · Guadalajara',
+	description = 'Tacos, tortas y chamorro en consomé. Tradición tapatía con actitud urbana. Hecho en Guadalajara.',
+} = Astro.props;
+---
+
 <!doctype html>
-<html lang="en">
+<html lang="es-MX">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content={description} />
+		<meta name="theme-color" content="#F2E6D8" />
+		<meta property="og:type" content="restaurant.restaurant" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:locale" content="es_MX" />
+		<meta name="twitter:card" content="summary_large_image" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<link rel="apple-touch-icon" href="/favicon.svg" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;800;900&family=Hanken+Grotesk:wght@400;500;600;700&display=swap"
+		/>
+		<title>{title}</title>
 	</head>
 	<body>
 		<slot />
 	</body>
 </html>
 
-<style>
+<style is:global>
+	:root {
+		/* ===== OFFICIAL PALETTE (from brand brief) ===== */
+		--terracota: #8C3A21;           /* color marca */
+		--terracota-hondo: #6B2C19;     /* hover */
+		--crema: #F2E6D8;               /* fondo principal */
+		--crema-hondo: #E8D9C4;         /* surface elevated */
+		--cafe: #2B1A14;                /* texto fuerte */
+		--cafe-medio: #4A332A;          /* secondary text */
+		--cafe-suave: #7A6256;          /* tertiary text */
+		--negro: #1A1A1A;               /* UI / high contrast */
+		--consome: #A8321E;             /* rojo consomé — acento */
+		--salsa: #4E6B3A;               /* verde sutil */
+		--linea: #D9C8B2;               /* borders */
+		--papel: #FAF3E8;               /* paper highlight */
+
+		/* Semantic */
+		--bg: var(--crema);
+		--fg: var(--cafe);
+		--fg-muted: var(--cafe-medio);
+		--fg-soft: var(--cafe-suave);
+		--brand: var(--terracota);
+		--accent: var(--consome);
+
+		/* Spacing — 4pt scale */
+		--space-3xs: 0.25rem;
+		--space-2xs: 0.5rem;
+		--space-xs: 0.75rem;
+		--space-sm: 1rem;
+		--space-md: 1.5rem;
+		--space-lg: 2rem;
+		--space-xl: 3rem;
+		--space-2xl: 4.5rem;
+		--space-3xl: 7rem;
+		--space-4xl: 10rem;
+
+		/* Fonts */
+		--display: 'Big Shoulders Display', 'Archivo Narrow', 'Helvetica Neue', sans-serif;
+		--body: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+		/* Fluid type scale — strong contrast between steps */
+		--text-xs: clamp(0.75rem, 0.72rem + 0.14vw, 0.82rem);
+		--text-sm: clamp(0.875rem, 0.84rem + 0.18vw, 0.96rem);
+		--text-base: clamp(1rem, 0.96rem + 0.22vw, 1.12rem);
+		--text-md: clamp(1.2rem, 1.13rem + 0.4vw, 1.4rem);
+		--text-lg: clamp(1.6rem, 1.4rem + 1vw, 2.1rem);
+		--text-xl: clamp(2.4rem, 2rem + 2vw, 3.6rem);
+		--text-2xl: clamp(3.2rem, 2.5rem + 3.4vw, 5.6rem);
+		--text-3xl: clamp(4.2rem, 2.9rem + 6.5vw, 9rem);
+		--text-hero: clamp(4.8rem, 3rem + 9vw, 11rem);
+
+		--radius-sm: 2px;
+		--radius-md: 6px;
+
+		--ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+	}
+
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+	}
+
+	html {
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		text-rendering: optimizeLegibility;
+		font-feature-settings: 'kern' 1, 'liga' 1;
+		scroll-behavior: smooth;
+	}
+
 	html,
 	body {
 		margin: 0;
-		width: 100%;
-		height: 100%;
+		padding: 0;
+	}
+
+	body {
+		font-family: var(--body);
+		font-size: var(--text-base);
+		font-weight: 400;
+		line-height: 1.55;
+		color: var(--fg);
+		background: var(--bg);
+		overflow-x: hidden;
+
+		/* Paper + concreto texture — layered noise + subtle warm glow */
+		background-image:
+			/* warm glow top-right (consomé haze) */
+			radial-gradient(
+				900px 600px at 95% -10%,
+				rgba(168, 50, 30, 0.10) 0%,
+				transparent 55%
+			),
+			/* warm glow bottom-left (clay) */
+			radial-gradient(
+				800px 560px at -5% 105%,
+				rgba(140, 58, 33, 0.08) 0%,
+				transparent 60%
+			),
+			/* paper grain */
+			url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch' seed='3'/><feColorMatrix values='0 0 0 0 0.17  0 0 0 0 0.10  0 0 0 0 0.07  0 0 0 0.045 0'/></filter><rect width='220' height='220' filter='url(%23p)'/></svg>"),
+			/* concrete-like pattern */
+			url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><filter id='c'><feTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='3' stitchTiles='stitch' seed='7'/><feColorMatrix values='0 0 0 0 0.40  0 0 0 0 0.30  0 0 0 0 0.22  0 0 0 0.025 0'/></filter><rect width='600' height='600' filter='url(%23c)'/></svg>");
+		background-attachment: fixed;
+		background-size: auto, auto, 220px 220px, 600px 600px;
+	}
+
+	::selection {
+		background: var(--terracota);
+		color: var(--crema);
+	}
+
+	a {
+		color: inherit;
+	}
+
+	img {
+		display: block;
+		max-width: 100%;
+	}
+
+	:focus-visible {
+		outline: 2px solid var(--terracota);
+		outline-offset: 3px;
+		border-radius: var(--radius-sm);
+	}
+
+	/* Headings default to display font */
+	h1, h2, h3, h4 {
+		font-family: var(--display);
+		font-weight: 800;
+		letter-spacing: 0.005em;
+		margin: 0;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		* {
+			animation-duration: 0.01ms !important;
+			animation-iteration-count: 1 !important;
+			transition-duration: 0.01ms !important;
+			scroll-behavior: auto !important;
+		}
 	}
 </style>

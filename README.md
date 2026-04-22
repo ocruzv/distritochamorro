@@ -1,46 +1,42 @@
-# Astro Starter Kit: Basics
+# Distrito Chamorro
+
+Sitio web de **Distrito Chamorro** — chamorrería en Guadalajara, Jalisco. "Chamorro que empodera."
+
+Isla Cozumel 2670, Col. Jardines de la Cruz, Guadalajara, Jal.
+Miércoles a Domingo · 9:00 AM – 4:00 PM
+
+## Stack
+
+- [Astro](https://astro.build) 6
+- Fuentes: Big Shoulders Display + Hanken Grotesk (Google Fonts)
+- Paleta oficial en `src/layouts/Layout.astro` (variables CSS)
+- Contexto de diseño en [`.impeccable.md`](./.impeccable.md)
+
+## Desarrollo
 
 ```sh
-npm create astro@latest -- --template basics
+npm install
+npm run dev        # http://localhost:4321
+npm run build      # build a ./dist
+npm run preview    # preview del build
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Estructura
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+```
+src/
+  assets/logo.png         — logo oficial
+  layouts/Layout.astro    — shell HTML, fuentes, paleta, tokens
+  pages/index.astro       — single-page site (hero, menú, horarios, lugar, galería)
+public/
+  favicon.svg             — marca del chamorro, basada en el logo
+.impeccable.md            — contexto de marca para iteraciones de diseño
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Cómo editar
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- **Menú, precios, combos**: arreglos `tacos`, `tortas`, `bebidas`, `combos` al inicio de `src/pages/index.astro`.
+- **Horarios**: objeto `horarios` en el mismo archivo.
+- **Dirección**: objeto `direccion` (alimenta la ficha de contacto, el croquis y el pie).
+- **Galería**: 4 tiles en `galeria`. Cámbialos por fotos reales cuando estén listas.
+- **Paleta**: variables CSS en `src/layouts/Layout.astro`.
