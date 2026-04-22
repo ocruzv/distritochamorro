@@ -413,51 +413,19 @@ const mapaPoi = [
 			</div>
 
 			<div class="lugar-grid">
-				<div class="lugar-info">
-					<div class="info-block">
-						<span class="info-label">Dirección</span>
-						<p class="info-dir">
-							<strong>{direccion.calle}</strong><br />
-							{direccion.colonia}<br />
-							{direccion.ciudad}
-						</p>
-						<a href={direccion.maps} class="info-cta" target="_blank" rel="noopener">
-							Abrir en Google Maps
-							<svg viewBox="0 0 20 20" aria-hidden="true" class="info-cta-arrow">
-								<path d="M5 15 L15 5 M8 5 H15 V12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" />
-							</svg>
-						</a>
-					</div>
-
-					<div class="info-block">
-						<span class="info-label">Contacto</span>
-						<ul class="info-list">
-							<li>
-								<a href="tel:+523312000000">+52 33 1200 0000</a>
-							</li>
-							<li>
-								<a href="https://wa.me/523312000000" target="_blank" rel="noopener">WhatsApp</a>
-							</li>
-							<li>
-								<a href="mailto:hola@distritochamorro.mx">hola@distritochamorro.mx</a>
-							</li>
-						</ul>
-					</div>
-
-					<div class="info-block">
-						<span class="info-label">Síguenos</span>
-						<ul class="info-redes">
-							<li>
-								<a href="https://instagram.com/distritochamorro" target="_blank" rel="noopener">Instagram</a>
-							</li>
-							<li>
-								<a href="https://tiktok.com/@distritochamorro" target="_blank" rel="noopener">TikTok</a>
-							</li>
-							<li>
-								<a href="https://facebook.com/distritochamorro" target="_blank" rel="noopener">Facebook</a>
-							</li>
-						</ul>
-					</div>
+				<div class="info-block info-direccion">
+					<span class="info-label">Dirección</span>
+					<p class="info-dir">
+						<strong>{direccion.calle}</strong><br />
+						{direccion.colonia}<br />
+						{direccion.ciudad}
+					</p>
+					<a href={direccion.maps} class="info-cta" target="_blank" rel="noopener">
+						Abrir en Google Maps
+						<svg viewBox="0 0 20 20" aria-hidden="true" class="info-cta-arrow">
+							<path d="M5 15 L15 5 M8 5 H15 V12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" />
+						</svg>
+					</a>
 				</div>
 
 				<a href={direccion.maps} class="lugar-mapa" target="_blank" rel="noopener" aria-label="Abrir ubicación en Google Maps">
@@ -568,6 +536,36 @@ const mapaPoi = [
 						</svg>
 					</div>
 				</a>
+
+				<div class="info-block info-contacto">
+					<span class="info-label">Contacto</span>
+					<ul class="info-list">
+						<li>
+							<a href="tel:+523312000000">+52 33 1200 0000</a>
+						</li>
+						<li>
+							<a href="https://wa.me/523312000000" target="_blank" rel="noopener">WhatsApp</a>
+						</li>
+						<li>
+							<a href="mailto:hola@distritochamorro.mx">hola@distritochamorro.mx</a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="info-block info-redes">
+					<span class="info-label">Síguenos</span>
+					<ul class="info-redes">
+						<li>
+							<a href="https://instagram.com/distritochamorro" target="_blank" rel="noopener">Instagram</a>
+						</li>
+						<li>
+							<a href="https://tiktok.com/@distritochamorro" target="_blank" rel="noopener">TikTok</a>
+						</li>
+						<li>
+							<a href="https://facebook.com/distritochamorro" target="_blank" rel="noopener">Facebook</a>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</section>
 	</main>
@@ -582,14 +580,7 @@ const mapaPoi = [
 		</div>
 
 		<div class="pie-grid">
-			<div class="pie-col">
-				<span class="pie-k">Horario</span>
-				<p class="pie-v">
-					{horarios.dias}<br />
-					{horarios.horas}
-				</p>
-			</div>
-			<div class="pie-col">
+			<div class="pie-col pie-col-donde">
 				<span class="pie-k">Dónde</span>
 				<p class="pie-v">
 					{direccion.calle}<br />
@@ -597,7 +588,14 @@ const mapaPoi = [
 					{direccion.ciudad}
 				</p>
 			</div>
-			<div class="pie-col">
+			<div class="pie-col pie-col-horario">
+				<span class="pie-k">Horario</span>
+				<p class="pie-v">
+					{horarios.dias}<br />
+					{horarios.horas}
+				</p>
+			</div>
+			<div class="pie-col pie-col-redes">
 				<span class="pie-k">Síguenos</span>
 				<ul class="pie-redes">
 					<li><a href="https://instagram.com/distritochamorro" target="_blank" rel="noopener">Instagram</a></li>
@@ -1509,21 +1507,32 @@ const mapaPoi = [
 	}
 	.lugar-grid {
 		display: grid;
-		grid-template-columns: 1fr;
 		gap: var(--space-lg);
+		/* Mobile: Dirección → Map → Contacto → Síguenos */
+		grid-template-columns: 1fr;
+		grid-template-areas:
+			'direccion'
+			'mapa'
+			'contacto'
+			'redes';
 	}
 	@media (min-width: 900px) {
 		.lugar-grid {
+			/* Desktop: left column with all info blocks, right column with the map spanning full height */
 			grid-template-columns: 1fr 1.4fr;
-			gap: var(--space-xl);
-			align-items: stretch;
+			grid-template-rows: auto auto 1fr;
+			grid-template-areas:
+				'direccion mapa'
+				'contacto  mapa'
+				'redes     mapa';
+			gap: var(--space-xl) var(--space-xl);
+			align-items: start;
 		}
 	}
-	.lugar-info {
-		display: grid;
-		gap: var(--space-lg);
-		align-content: start;
-	}
+	.info-direccion { grid-area: direccion; }
+	.info-contacto { grid-area: contacto; }
+	.lugar-grid > .info-redes { grid-area: redes; }
+	.lugar-mapa { grid-area: mapa; }
 	.info-block {
 		display: grid;
 		gap: var(--space-xs);
@@ -1727,10 +1736,25 @@ const mapaPoi = [
 	.pie-grid {
 		position: relative;
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-		gap: var(--space-xl);
+		/* Mobile: Dónde full-width arriba, Horario + Síguenos side-by-side.
+		   Compacta las 3 piezas sin perder jerarquía. */
+		grid-template-columns: 1fr 1fr;
+		grid-template-areas:
+			'donde donde'
+			'horario redes';
+		gap: var(--space-lg) var(--space-md);
 		padding-top: var(--space-xl);
 		border-top: 1px solid color-mix(in oklab, var(--crema) 20%, transparent);
+	}
+	.pie-col-horario { grid-area: horario; }
+	.pie-col-donde { grid-area: donde; }
+	.pie-col-redes { grid-area: redes; }
+	@media (min-width: 640px) {
+		.pie-grid {
+			grid-template-columns: repeat(3, 1fr);
+			grid-template-areas: 'horario donde redes';
+			gap: var(--space-xl);
+		}
 	}
 	.pie-col {
 		display: grid;
