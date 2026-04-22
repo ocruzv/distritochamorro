@@ -25,7 +25,4 @@ pnpm-debug.log*
 
 # Playwright MCP screenshots + session artifacts
 .playwright-mcp/
-*-desktop.png
-*-mobile-*.png
-*-full-*.png
-[0-9][0-9]-*.png
+/*.png
