@@ -10,12 +10,32 @@ const horarios = {
 };
 
 const tacos = [
-	{ name: 'Taco de chamorro suave', price: 22 },
-	{ name: 'Taco de chamorro dorado', price: 20 },
+	{
+		name: 'Taco de chamorro suave',
+		price: 25,
+		detail: 'Chamorro jugoso estilo barbacoa, tortilla hecha a mano.',
+	},
+	{
+		name: 'Taco de chamorro dorado',
+		price: 20,
+		detail: 'Chamorro doradito estilo barbacoa Jalisco, tortilla delgada.',
+	},
 ];
 
 const tortas = [
-	{ name: 'Torta ahogada de chamorro', price: 80 },
+	{
+		name: 'Torta ahogada de chamorro',
+		price: 80,
+		detail: 'Torta rellena de chamorro y bañada en el mismo consomé del chamorro.',
+	},
+];
+
+const estrellaIncluye = [
+	'Consomé de la casa (de cortesía)',
+	'Cebolla morada curtida',
+	'Salsas',
+	'Limón',
+	'Tortillas recién hechas',
 ];
 
 const bebidas = [
@@ -25,7 +45,7 @@ const bebidas = [
 ];
 
 const combos = [
-	{ name: 'Combo tacos', includes: '3 tacos + agua chica o refresco', price: 85 },
+	{ name: 'Combo tacos', includes: '3 tacos dorados + agua chica o refresco', price: 85 },
 	{ name: 'Combo torta', includes: 'torta + consomé + refresco', price: 110 },
 	{ name: 'Combo chamorro', includes: 'chamorro + agua chica o refresco', price: 140 },
 ];
@@ -268,10 +288,14 @@ const mapaPoi = [
 					<span class="estrella-badge">★ Plato estrella</span>
 					<h3 class="estrella-titulo">Chamorro entero<br />en consomé</h3>
 					<p class="estrella-desc">
-						El motivo por el que abrimos. 48 horas de marinado y ocho horas
-						en caldo de la casa, con tortillas hechas a mano y salsa
-						molcajeteada.
+						Chamorro suave o dorado, 48 horas de marinado y ocho horas en
+						caldo de la casa. Servido con:
 					</p>
+					<ul class="estrella-lista">
+						{estrellaIncluye.map((x) => (
+							<li>{x}</li>
+						))}
+					</ul>
 				</div>
 				<div class="estrella-right">
 					<span class="estrella-precio">
@@ -287,10 +311,13 @@ const mapaPoi = [
 					<h3 class="menu-col-titulo">Tacos</h3>
 					<ul class="menu-col-list">
 						{tacos.map((t) => (
-							<li class="menu-col-item">
-								<span>{t.name}</span>
-								<span class="leader" aria-hidden="true"></span>
-								<span class="precio">${t.price}</span>
+							<li class="menu-col-item menu-col-item-rich">
+								<div class="menu-col-line">
+									<span class="menu-col-name">{t.name}</span>
+									<span class="leader" aria-hidden="true"></span>
+									<span class="precio">${t.price}</span>
+								</div>
+								<p class="menu-col-detail">{t.detail}</p>
 							</li>
 						))}
 					</ul>
@@ -301,10 +328,13 @@ const mapaPoi = [
 					<h3 class="menu-col-titulo">Tortas</h3>
 					<ul class="menu-col-list">
 						{tortas.map((t) => (
-							<li class="menu-col-item">
-								<span>{t.name}</span>
-								<span class="leader" aria-hidden="true"></span>
-								<span class="precio">${t.price}</span>
+							<li class="menu-col-item menu-col-item-rich">
+								<div class="menu-col-line">
+									<span class="menu-col-name">{t.name}</span>
+									<span class="leader" aria-hidden="true"></span>
+									<span class="precio">${t.price}</span>
+								</div>
+								<p class="menu-col-detail">{t.detail}</p>
 							</li>
 						))}
 					</ul>
@@ -1120,9 +1150,32 @@ const mapaPoi = [
 	.estrella-desc {
 		font-size: var(--text-base);
 		line-height: 1.5;
-		color: color-mix(in oklab, var(--crema) 75%, transparent);
-		margin: 0;
+		color: color-mix(in oklab, var(--crema) 78%, transparent);
+		margin: 0 0 var(--space-sm);
 		max-width: 44ch;
+	}
+	.estrella-lista {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		gap: 0.35rem;
+		font-size: var(--text-sm);
+		color: color-mix(in oklab, var(--crema) 88%, transparent);
+		max-width: 42ch;
+	}
+	.estrella-lista li {
+		position: relative;
+		padding-left: 1.25em;
+	}
+	.estrella-lista li::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0.65em;
+		width: 0.55em;
+		height: 1px;
+		background: var(--consome);
 	}
 	.estrella-right {
 		position: relative;
@@ -1205,6 +1258,27 @@ const mapaPoi = [
 		font-size: var(--text-base);
 		line-height: 1.3;
 		color: var(--cafe);
+	}
+	.menu-col-item-rich {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 0.3rem;
+	}
+	.menu-col-line {
+		display: grid;
+		grid-template-columns: auto 1fr auto;
+		gap: 0.75rem;
+		align-items: baseline;
+	}
+	.menu-col-name {
+		color: var(--cafe);
+	}
+	.menu-col-detail {
+		margin: 0;
+		font-size: var(--text-sm);
+		line-height: 1.4;
+		color: var(--fg-soft);
+		max-width: 42ch;
 	}
 	.leader {
 		height: 1px;
