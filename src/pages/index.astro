@@ -4,6 +4,7 @@ import Layout from '../layouts/Layout.astro';
 import logo from '../assets/logo.png';
 import tortaAhogadaImg from '../assets/menu/torta-ahogada.jpeg';
 import chamorroImg from '../assets/menu/chamorro.jpeg';
+import chamorroHeroImg from '../assets/menu/chamorro-hero.png';
 import tacosDoradosImg from '../assets/menu/tacos-dorados.jpeg';
 import tacosBlanditosImg from '../assets/menu/tacos-blanditos.jpeg';
 
@@ -158,79 +159,27 @@ const mapaPoi = [
 				</div>
 
 				<aside class="hero-visual" aria-hidden="true">
-					<!-- Stylized chamorro-en-consomé illustration — brand-aligned placeholder -->
 					<div class="plato">
 						<div class="plato-frame">
-							<svg viewBox="0 0 400 400" class="plato-svg">
-								<defs>
-									<radialGradient id="caldo" cx="50%" cy="42%" r="50%">
-										<stop offset="0%" stop-color="#C9742A" />
-										<stop offset="55%" stop-color="#A8321E" />
-										<stop offset="100%" stop-color="#6B2C19" />
-									</radialGradient>
-									<radialGradient id="brillo" cx="40%" cy="35%" r="30%">
-										<stop offset="0%" stop-color="rgba(255,230,180,0.55)" />
-										<stop offset="100%" stop-color="rgba(255,230,180,0)" />
-									</radialGradient>
-									<pattern id="barro-rim" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-										<rect width="8" height="8" fill="#3a1e13" />
-										<line x1="0" y1="0" x2="0" y2="8" stroke="#2B1A14" stroke-width="1.5" />
-									</pattern>
-								</defs>
-
-								<!-- steam -->
-								<g class="vapor" opacity="0.55">
-									<path d="M140 40 Q155 70 140 105 Q125 135 145 170" fill="none" stroke="#F2E6D8" stroke-width="3" stroke-linecap="round" opacity="0.7" />
-									<path d="M200 20 Q215 55 198 95 Q182 130 208 170" fill="none" stroke="#F2E6D8" stroke-width="3" stroke-linecap="round" opacity="0.9" />
-									<path d="M265 40 Q250 75 268 110 Q285 145 260 175" fill="none" stroke="#F2E6D8" stroke-width="3" stroke-linecap="round" opacity="0.7" />
+							<div class="plato-glow" aria-hidden="true"></div>
+							<Image
+								src={chamorroHeroImg}
+								alt=""
+								widths={[480, 720, 960, 1200]}
+								sizes="(min-width: 720px) 40vw, 80vw"
+								class="plato-photo"
+								loading="eager"
+							/>
+							<svg viewBox="0 0 400 220" class="plato-vapor" aria-hidden="true" preserveAspectRatio="xMidYMin meet">
+								<g class="vapor">
+									<path d="M140 220 Q155 150 140 80 Q125 35 145 0" fill="none" stroke="#F2E6D8" stroke-width="3" stroke-linecap="round" opacity="0.55" />
+									<path d="M200 220 Q215 160 198 100 Q182 55 208 0" fill="none" stroke="#F2E6D8" stroke-width="3" stroke-linecap="round" opacity="0.8" />
+									<path d="M265 220 Q250 145 268 80 Q285 30 260 0" fill="none" stroke="#F2E6D8" stroke-width="3" stroke-linecap="round" opacity="0.55" />
 								</g>
-
-								<!-- plate base shadow -->
-								<ellipse cx="200" cy="340" rx="170" ry="18" fill="rgba(43, 26, 20, 0.35)" />
-
-								<!-- outer rim (barro) -->
-								<ellipse cx="200" cy="250" rx="175" ry="95" fill="#3A1E13" />
-								<ellipse cx="200" cy="246" rx="170" ry="90" fill="#4A2618" />
-								<ellipse cx="200" cy="244" rx="165" ry="86" fill="url(#barro-rim)" opacity="0.4" />
-
-								<!-- inner bowl -->
-								<ellipse cx="200" cy="240" rx="148" ry="72" fill="#2B1A14" />
-
-								<!-- broth -->
-								<ellipse cx="200" cy="232" rx="140" ry="62" fill="url(#caldo)" />
-
-								<!-- chamorro piece -->
-								<g transform="translate(145, 190)">
-									<ellipse cx="55" cy="45" rx="56" ry="32" fill="#6B2C19" />
-									<ellipse cx="55" cy="40" rx="52" ry="28" fill="#8C3A21" />
-									<ellipse cx="55" cy="36" rx="44" ry="22" fill="#A8321E" />
-									<!-- bone -->
-									<rect x="92" y="30" width="30" height="9" rx="4" fill="#F2E6D8" />
-									<circle cx="120" cy="30" r="6" fill="#F2E6D8" />
-									<circle cx="120" cy="39" r="6" fill="#F2E6D8" />
-									<!-- shine -->
-									<ellipse cx="45" cy="28" rx="20" ry="5" fill="rgba(255,220,170,0.4)" />
-								</g>
-
-								<!-- aromatics floating -->
-								<circle cx="90" cy="220" r="4" fill="#4E6B3A" opacity="0.8" /> <!-- cilantro -->
-								<circle cx="95" cy="226" r="3.5" fill="#4E6B3A" opacity="0.7" />
-								<circle cx="310" cy="235" r="4" fill="#4E6B3A" opacity="0.7" />
-								<circle cx="305" cy="241" r="3" fill="#4E6B3A" opacity="0.8" />
-								<!-- onion dice -->
-								<rect x="110" y="252" width="5" height="5" fill="#F2E6D8" opacity="0.9" />
-								<rect x="290" y="260" width="5" height="5" fill="#F2E6D8" opacity="0.9" />
-								<rect x="155" y="275" width="4" height="4" fill="#F2E6D8" opacity="0.85" />
-								<!-- chile slice -->
-								<ellipse cx="270" cy="220" rx="12" ry="4" fill="#A8321E" opacity="0.95" />
-								<ellipse cx="270" cy="220" rx="9" ry="2.5" fill="#6B2C19" opacity="0.9" />
-
-								<!-- gloss highlight -->
-								<ellipse cx="170" cy="220" rx="50" ry="10" fill="url(#brillo)" />
 							</svg>
 						</div>
 						<div class="plato-label">
-							<span class="plato-label-k">Plato estrella</span>
+							<span class="plato-label-k">♛ El Rey</span>
 							<span class="plato-label-v">Chamorro en consomé</span>
 						</div>
 					</div>
@@ -881,28 +830,56 @@ const mapaPoi = [
 	.plato-frame {
 		position: relative;
 		aspect-ratio: 1;
-		background:
-			radial-gradient(ellipse at 50% 40%, rgba(255, 230, 200, 0.5) 0%, transparent 55%),
-			linear-gradient(160deg, var(--crema-hondo) 0%, #D9C8B2 100%);
-		border-radius: 50%;
-		box-shadow:
-			0 40px 80px -30px rgba(43, 26, 20, 0.35),
-			0 0 0 1px rgba(43, 26, 20, 0.08),
-			inset 0 0 60px rgba(140, 58, 33, 0.08);
-		overflow: hidden;
+		isolation: isolate;
+		filter: drop-shadow(0 40px 55px rgba(43, 26, 20, 0.4));
+		animation: plato-fade-in 1400ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
 	}
-	.plato-frame::before {
-		content: '';
+	.plato-photo {
 		position: absolute;
 		inset: 0;
-		background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='2'/><feColorMatrix values='0 0 0 0 0.17  0 0 0 0 0.10  0 0 0 0 0.07  0 0 0 0.08 0'/></filter><rect width='200' height='200' filter='url(%23g)'/></svg>");
-		opacity: 0.6;
-		pointer-events: none;
-	}
-	.plato-svg {
-		position: relative;
 		width: 100%;
 		height: 100%;
+		object-fit: cover;
+		object-position: 55% 55%;
+		display: block;
+		/* fancy fade: photo melts into the paper at the edges */
+		-webkit-mask-image: radial-gradient(ellipse 65% 60% at 52% 55%, #000 35%, rgba(0,0,0,0.92) 55%, rgba(0,0,0,0.4) 75%, transparent 95%);
+		mask-image: radial-gradient(ellipse 65% 60% at 52% 55%, #000 35%, rgba(0,0,0,0.92) 55%, rgba(0,0,0,0.4) 75%, transparent 95%);
+		filter: contrast(1.05) saturate(1.08);
+	}
+	.plato-glow {
+		position: absolute;
+		inset: 8%;
+		border-radius: 50%;
+		background:
+			radial-gradient(circle at 50% 55%, rgba(201, 116, 42, 0.55) 0%, rgba(168, 50, 30, 0.25) 35%, transparent 70%);
+		filter: blur(28px);
+		mix-blend-mode: screen;
+		pointer-events: none;
+		z-index: 0;
+		animation: plato-pulse 6s ease-in-out infinite;
+	}
+	.plato-vapor {
+		position: absolute;
+		top: -2%;
+		left: 50%;
+		width: 55%;
+		height: 50%;
+		transform: translateX(-50%);
+		pointer-events: none;
+		z-index: 2;
+	}
+	@keyframes plato-fade-in {
+		from { opacity: 0; transform: scale(0.94) translateY(18px); }
+		to { opacity: 1; transform: none; }
+	}
+	@keyframes plato-pulse {
+		0%, 100% { opacity: 0.85; transform: scale(1); }
+		50% { opacity: 1; transform: scale(1.04); }
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.plato-frame { animation: none; }
+		.plato-glow { animation: none; }
 	}
 	.plato-label {
 		position: absolute;
