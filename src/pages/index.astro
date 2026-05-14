@@ -2,6 +2,10 @@
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import logo from '../assets/logo.png';
+import tortaAhogadaImg from '../assets/menu/torta-ahogada.jpeg';
+import chamorroImg from '../assets/menu/chamorro.jpeg';
+import tacosDoradosImg from '../assets/menu/tacos-dorados.jpeg';
+import tacosBlanditosImg from '../assets/menu/tacos-blanditos.jpeg';
 
 const horarios = {
 	dias: 'Miércoles a Domingo',
@@ -14,21 +18,30 @@ const tacos = [
 		name: 'Taco blandito de Chamorro',
 		price: 25,
 		detail: 'Delicioso taco blandito en tortilla a mano, con carrita de nuestro jugoso chamorro cocinado a fuego lento durante 8 horas.',
+		image: tacosBlanditosImg,
+		alt: 'Tacos blanditos de chamorro en tortilla a mano',
 	},
 	{
 		name: 'Taco doradito de Chamorro',
 		price: 25,
 		detail: 'Taco estilo barbacoa, tortilla tamaño normal, dorado con la grasita que suelta el chamorro al cocinarlo.',
+		image: tacosDoradosImg,
+		alt: 'Tacos dorados de chamorro con consomé',
 	},
 ];
 
-const tortas = [
-	{
-		name: 'Torta ahogada de chamorro',
-		price: 80,
-		detail: 'Esta no es la típica torta ahogada: la hacemos con nuestro delicioso chamorro y la bañamos en nuestro famoso consomé 100% natural, sacado del propio chamorro mientras se cocina.',
-	},
-];
+const tortaAhogada = {
+	name: 'Torta ahogada de chamorro',
+	price: 80,
+	detail: 'Esta no es la típica torta ahogada: la hacemos con nuestro delicioso chamorro y la bañamos en nuestro famoso consomé 100% natural, sacado del propio chamorro mientras se cocina.',
+};
+
+const chamorroEntero = {
+	name: 'Chamorro entero en consomé',
+	price: 130,
+	medio: 80,
+	detail: 'Chamorro suave, cocinado a fuego lento durante 8 horas, servido con nuestro famoso consomé de la casa (de cortesía), cebolla curtida, salsa, limón, tortillas y arroz.',
+};
 
 const bebidas = [
 	{ name: 'Aguas frescas', price: '25 / 45', note: 'vaso / litro' },
@@ -275,24 +288,53 @@ const mapaPoi = [
 				<p class="menu-sub">Precios en pesos. Servicio no incluido.</p>
 			</div>
 
-			<!-- Plato estrella — card -->
+			<!-- Plato estrella — Torta Ahogada -->
 			<article class="estrella" aria-label="Plato estrella">
+				<div class="estrella-media">
+					<Image
+						src={tortaAhogadaImg}
+						alt="Torta ahogada de chamorro bañada en consomé"
+						widths={[480, 720, 960]}
+						sizes="(min-width: 720px) 38vw, 100vw"
+						class="estrella-img"
+					/>
+				</div>
 				<div class="estrella-left">
 					<span class="estrella-badge">★ Plato estrella</span>
-					<h3 class="estrella-titulo">Chamorro entero<br />en consomé</h3>
-					<p class="estrella-desc">
-						Chamorro suave, cocinado a fuego lento durante 8 horas, servido
-						con nuestro famoso consomé de la casa (de cortesía), cebolla
-						curtida, salsa, limón, tortillas y arroz.
-					</p>
+					<h3 class="estrella-titulo">Torta ahogada<br />de chamorro</h3>
+					<p class="estrella-desc">{tortaAhogada.detail}</p>
 				</div>
 				<div class="estrella-right">
 					<span class="estrella-precio">
-						<span class="estrella-moneda">$</span>130
+						<span class="estrella-moneda">$</span>{tortaAhogada.price}
+					</span>
+					<a href="#lugar" class="estrella-cta">Vente por una</a>
+				</div>
+			</article>
+
+			<!-- El Rey — Chamorro entero en consomé -->
+			<article class="estrella estrella-rey" aria-label="El Rey: chamorro entero en consomé">
+				<div class="estrella-media">
+					<Image
+						src={chamorroImg}
+						alt="Chamorro entero servido en plato de barro con arroz y cebolla"
+						widths={[480, 720, 960]}
+						sizes="(min-width: 720px) 38vw, 100vw"
+						class="estrella-img"
+					/>
+				</div>
+				<div class="estrella-left">
+					<span class="estrella-badge">♛ El Rey</span>
+					<h3 class="estrella-titulo">Chamorro entero<br />en consomé</h3>
+					<p class="estrella-desc">{chamorroEntero.detail}</p>
+				</div>
+				<div class="estrella-right">
+					<span class="estrella-precio">
+						<span class="estrella-moneda">$</span>{chamorroEntero.price}
 					</span>
 					<span class="estrella-precio-alt">
 						<span class="estrella-precio-alt-k">o medio por</span>
-						<span class="estrella-precio-alt-v"><span class="estrella-precio-alt-moneda">$</span>80</span>
+						<span class="estrella-precio-alt-v"><span class="estrella-precio-alt-moneda">$</span>{chamorroEntero.medio}</span>
 					</span>
 					<a href="#lugar" class="estrella-cta">Vente por uno</a>
 				</div>
@@ -300,34 +342,28 @@ const mapaPoi = [
 
 			<div class="menu-grid">
 				<!-- TACOS -->
-				<div class="menu-col">
-					<h3 class="menu-col-titulo">Tacos</h3>
+				<div class="menu-col menu-col-tacos">
+					<h3 class="menu-col-titulo">Tacos de chamorro</h3>
 					<ul class="menu-col-list">
 						{tacos.map((t) => (
-							<li class="menu-col-item menu-col-item-rich">
-								<div class="menu-col-line">
-									<span class="menu-col-name">{t.name}</span>
-									<span class="leader" aria-hidden="true"></span>
-									<span class="precio">${t.price}</span>
+							<li class="taco-item">
+								<div class="taco-thumb">
+									<Image
+										src={t.image}
+										alt={t.alt}
+										widths={[160, 240, 320]}
+										sizes="(min-width: 720px) 140px, 110px"
+										class="taco-thumb-img"
+									/>
 								</div>
-								<p class="menu-col-detail">{t.detail}</p>
-							</li>
-						))}
-					</ul>
-				</div>
-
-				<!-- TORTAS -->
-				<div class="menu-col">
-					<h3 class="menu-col-titulo">Tortas</h3>
-					<ul class="menu-col-list">
-						{tortas.map((t) => (
-							<li class="menu-col-item menu-col-item-rich">
-								<div class="menu-col-line">
-									<span class="menu-col-name">{t.name}</span>
-									<span class="leader" aria-hidden="true"></span>
-									<span class="precio">${t.price}</span>
+								<div class="taco-body">
+									<div class="menu-col-line">
+										<span class="menu-col-name">{t.name}</span>
+										<span class="leader" aria-hidden="true"></span>
+										<span class="precio">${t.price}</span>
+									</div>
+									<p class="menu-col-detail">{t.detail}</p>
 								</div>
-								<p class="menu-col-detail">{t.detail}</p>
 							</li>
 						))}
 					</ul>
@@ -1094,9 +1130,12 @@ const mapaPoi = [
 		color: var(--crema);
 		padding: clamp(var(--space-lg), 4vw, var(--space-2xl));
 		border-radius: 8px;
-		margin-bottom: var(--space-2xl);
+		margin-bottom: var(--space-lg);
 		position: relative;
 		overflow: hidden;
+	}
+	.estrella:last-of-type {
+		margin-bottom: var(--space-2xl);
 	}
 	.estrella::before {
 		content: '';
@@ -1111,10 +1150,37 @@ const mapaPoi = [
 	}
 	@media (min-width: 720px) {
 		.estrella {
-			grid-template-columns: 1.5fr 1fr;
+			grid-template-columns: minmax(220px, 0.9fr) 1.4fr auto;
 			align-items: center;
-			gap: var(--space-2xl);
+			gap: var(--space-xl);
 		}
+	}
+	.estrella-rey {
+		background: linear-gradient(180deg, var(--cafe) 0%, color-mix(in oklab, var(--cafe) 88%, black) 100%);
+	}
+	.estrella-rey .estrella-badge {
+		color: var(--crema);
+	}
+	.estrella-media {
+		position: relative;
+		border-radius: 6px;
+		overflow: hidden;
+		aspect-ratio: 4 / 3;
+		background: color-mix(in oklab, var(--cafe) 80%, black);
+	}
+	.estrella-media::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--consome) 25%, transparent);
+		border-radius: inherit;
+		pointer-events: none;
+	}
+	.estrella-img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
 	}
 	.estrella-left {
 		position: relative;
@@ -1257,6 +1323,39 @@ const mapaPoi = [
 		display: grid;
 		grid-template-columns: 1fr;
 		gap: 0.3rem;
+	}
+	.taco-item {
+		display: grid;
+		grid-template-columns: 110px 1fr;
+		gap: var(--space-md);
+		align-items: start;
+		padding: var(--space-sm) 0;
+		border-bottom: 1px dashed color-mix(in oklab, var(--linea) 70%, transparent);
+	}
+	.taco-item:last-child {
+		border-bottom: none;
+	}
+	@media (min-width: 720px) {
+		.taco-item {
+			grid-template-columns: 140px 1fr;
+		}
+	}
+	.taco-thumb {
+		position: relative;
+		border-radius: 6px;
+		overflow: hidden;
+		aspect-ratio: 1 / 1;
+		background: color-mix(in oklab, var(--cafe) 10%, var(--papel));
+	}
+	.taco-thumb-img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+	.taco-body {
+		display: grid;
+		gap: 0.35rem;
 	}
 	.menu-col-line {
 		display: grid;
