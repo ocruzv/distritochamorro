@@ -30,15 +30,6 @@ const tortas = [
 	},
 ];
 
-const estrellaIncluye = [
-	'Consomé de la casa (de cortesía)',
-	'Cebolla morada curtida',
-	'Salsas',
-	'Limón',
-	'Tortillas recién hechas',
-	'Acompañado de arroz',
-];
-
 const bebidas = [
 	{ name: 'Aguas frescas', price: '25 / 45', note: 'vaso / litro' },
 	{ name: 'Refrescos', price: 30 },
@@ -290,13 +281,10 @@ const mapaPoi = [
 					<span class="estrella-badge">★ Plato estrella</span>
 					<h3 class="estrella-titulo">Chamorro entero<br />en consomé</h3>
 					<p class="estrella-desc">
-						Chamorro suave o dorado, servido con:
+						Chamorro suave, cocinado a fuego lento durante 8 horas, servido
+						con nuestro famoso consomé de la casa (de cortesía), cebolla
+						curtida, salsa, limón, tortillas y arroz.
 					</p>
-					<ul class="estrella-lista">
-						{estrellaIncluye.map((x) => (
-							<li>{x}</li>
-						))}
-					</ul>
 				</div>
 				<div class="estrella-right">
 					<span class="estrella-precio">
@@ -1155,29 +1143,6 @@ const mapaPoi = [
 		color: color-mix(in oklab, var(--crema) 78%, transparent);
 		margin: 0 0 var(--space-sm);
 		max-width: 44ch;
-	}
-	.estrella-lista {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		display: grid;
-		gap: 0.35rem;
-		font-size: var(--text-sm);
-		color: color-mix(in oklab, var(--crema) 88%, transparent);
-		max-width: 42ch;
-	}
-	.estrella-lista li {
-		position: relative;
-		padding-left: 1.25em;
-	}
-	.estrella-lista li::before {
-		content: '';
-		position: absolute;
-		left: 0;
-		top: 0.65em;
-		width: 0.55em;
-		height: 1px;
-		background: var(--consome);
 	}
 	.estrella-right {
 		position: relative;
