@@ -161,7 +161,6 @@ const mapaPoi = [
 				<aside class="hero-visual" aria-hidden="true">
 					<div class="plato">
 						<div class="plato-frame">
-							<div class="plato-glow" aria-hidden="true"></div>
 							<Image
 								src={chamorroHeroImg}
 								alt=""
@@ -170,13 +169,6 @@ const mapaPoi = [
 								class="plato-photo"
 								loading="eager"
 							/>
-							<svg viewBox="0 0 400 220" class="plato-vapor" aria-hidden="true" preserveAspectRatio="xMidYMin meet">
-								<g class="vapor">
-									<path d="M140 220 Q155 150 140 80 Q125 35 145 0" fill="none" stroke="#F2E6D8" stroke-width="3" stroke-linecap="round" opacity="0.55" />
-									<path d="M200 220 Q215 160 198 100 Q182 55 208 0" fill="none" stroke="#F2E6D8" stroke-width="3" stroke-linecap="round" opacity="0.8" />
-									<path d="M265 220 Q250 145 268 80 Q285 30 260 0" fill="none" stroke="#F2E6D8" stroke-width="3" stroke-linecap="round" opacity="0.55" />
-								</g>
-							</svg>
 						</div>
 						<div class="plato-label">
 							<span class="plato-label-k">♛ El Rey</span>
@@ -829,71 +821,67 @@ const mapaPoi = [
 	}
 	.plato-frame {
 		position: relative;
-		aspect-ratio: 1;
-		isolation: isolate;
-		filter: drop-shadow(0 40px 55px rgba(43, 26, 20, 0.4));
-		animation: plato-fade-in 1400ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+		aspect-ratio: 4 / 5;
+		padding: clamp(12px, 1.4vw, 18px);
+		background: var(--cafe);
+		border-radius: 6px;
+		transform: rotate(-1.5deg);
+		box-shadow:
+			0 30px 55px -18px rgba(43, 26, 20, 0.5),
+			0 6px 14px -6px rgba(43, 26, 20, 0.35),
+			inset 0 0 0 1px rgba(255, 230, 200, 0.06);
+		transition: transform 360ms var(--ease-out), box-shadow 360ms var(--ease-out);
+		animation: plato-fade-in 1100ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
 	}
-	.plato-photo {
+	.plato-frame::before {
+		/* inner accent line — like a brass matte on a real frame */
+		content: '';
 		position: absolute;
-		inset: 0;
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		object-position: 55% 55%;
-		display: block;
-		/* fancy fade: photo melts into the paper at the edges */
-		-webkit-mask-image: radial-gradient(ellipse 65% 60% at 52% 55%, #000 35%, rgba(0,0,0,0.92) 55%, rgba(0,0,0,0.4) 75%, transparent 95%);
-		mask-image: radial-gradient(ellipse 65% 60% at 52% 55%, #000 35%, rgba(0,0,0,0.92) 55%, rgba(0,0,0,0.4) 75%, transparent 95%);
-		filter: contrast(1.05) saturate(1.08);
-	}
-	.plato-glow {
-		position: absolute;
-		inset: 8%;
-		border-radius: 50%;
-		background:
-			radial-gradient(circle at 50% 55%, rgba(201, 116, 42, 0.55) 0%, rgba(168, 50, 30, 0.25) 35%, transparent 70%);
-		filter: blur(28px);
-		mix-blend-mode: screen;
-		pointer-events: none;
-		z-index: 0;
-		animation: plato-pulse 6s ease-in-out infinite;
-	}
-	.plato-vapor {
-		position: absolute;
-		top: -2%;
-		left: 50%;
-		width: 55%;
-		height: 50%;
-		transform: translateX(-50%);
+		inset: clamp(6px, 0.7vw, 9px);
+		border: 1px solid color-mix(in oklab, var(--consome) 55%, transparent);
+		border-radius: 3px;
 		pointer-events: none;
 		z-index: 2;
 	}
-	@keyframes plato-fade-in {
-		from { opacity: 0; transform: scale(0.94) translateY(18px); }
-		to { opacity: 1; transform: none; }
+	.plato-frame:hover {
+		transform: rotate(-0.5deg) translateY(-4px);
+		box-shadow:
+			0 40px 70px -18px rgba(43, 26, 20, 0.55),
+			0 8px 18px -6px rgba(43, 26, 20, 0.4),
+			inset 0 0 0 1px rgba(255, 230, 200, 0.08);
 	}
-	@keyframes plato-pulse {
-		0%, 100% { opacity: 0.85; transform: scale(1); }
-		50% { opacity: 1; transform: scale(1.04); }
+	.plato-photo {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: 55% 50%;
+		display: block;
+		border-radius: 2px;
+		filter: contrast(1.04) saturate(1.06);
+	}
+	@keyframes plato-fade-in {
+		from { opacity: 0; transform: rotate(-3.5deg) translateY(22px); }
+		to { opacity: 1; transform: rotate(-1.5deg); }
 	}
 	@media (prefers-reduced-motion: reduce) {
-		.plato-frame { animation: none; }
-		.plato-glow { animation: none; }
+		.plato-frame { animation: none; transform: rotate(-1.5deg); }
+		.plato-frame:hover { transform: rotate(-1.5deg); }
 	}
 	.plato-label {
 		position: absolute;
-		bottom: -8px;
-		left: 50%;
-		transform: translateX(-50%) rotate(-3deg);
+		bottom: -16px;
+		right: -8px;
+		transform: rotate(2.5deg);
 		background: var(--cafe);
 		color: var(--crema);
-		padding: 0.65rem 1.5rem;
+		padding: 0.65rem 1.4rem;
 		border-radius: 4px;
 		display: grid;
-		gap: 0.1rem;
+		gap: 0.15rem;
 		text-align: center;
-		box-shadow: 0 10px 30px -10px rgba(43, 26, 20, 0.4);
+		box-shadow:
+			0 14px 30px -10px rgba(43, 26, 20, 0.5),
+			inset 0 0 0 1px color-mix(in oklab, var(--consome) 35%, transparent);
 	}
 	.plato-label-k {
 		font-size: var(--text-xs);
