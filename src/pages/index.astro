@@ -5,7 +5,7 @@ import logo from '../assets/logo.png';
 
 const horarios = {
 	dias: 'Miércoles a Domingo',
-	horas: '9:00 AM — 4:00 PM',
+	horas: '10:00 AM — 4:00 PM',
 	cerrado: 'Lunes y Martes',
 };
 
@@ -13,12 +13,12 @@ const tacos = [
 	{
 		name: 'Taco blandito de Chamorro',
 		price: 25,
-		detail: 'Chamorro jugoso estilo barbacoa, tortilla hecha a mano.',
+		detail: 'Delicioso taco blandito en tortilla a mano, con carrita de nuestro jugoso chamorro cocinado a fuego lento durante 8 horas.',
 	},
 	{
 		name: 'Taco doradito de Chamorro',
-		price: 20,
-		detail: 'Chamorro doradito estilo barbacoa Jalisco, tortilla delgada.',
+		price: 25,
+		detail: 'Taco estilo barbacoa, tortilla tamaño normal, dorado con la grasita que suelta el chamorro al cocinarlo.',
 	},
 ];
 
@@ -36,18 +36,19 @@ const estrellaIncluye = [
 	'Salsas',
 	'Limón',
 	'Tortillas recién hechas',
+	'Acompañado de arroz',
 ];
 
 const bebidas = [
-	{ name: 'Aguas frescas', price: '25 / 45', note: 'chica / grande' },
+	{ name: 'Aguas frescas', price: '25 / 45', note: 'vaso / litro' },
 	{ name: 'Refrescos', price: 30 },
 	{ name: 'Agua natural', price: 18 },
 ];
 
 const combos = [
-	{ name: 'Combo tacos', includes: '3 tacos doraditos + agua chica o refresco', price: 85 },
-	{ name: 'Combo torta', includes: 'torta + consomé + refresco', price: 110 },
-	{ name: 'Combo chamorro', includes: 'chamorro + agua chica o refresco', price: 140 },
+	{ name: 'Combo tacos', includes: '3 tacos (cualquier combinación suave/dorado) + agua chica o refresco', price: 95 },
+	{ name: 'Combo torta', includes: 'torta ahogada de chamorro + consomé + refresco', price: 100 },
+	{ name: 'Combo chamorro', includes: 'chamorro entero + agua chica o refresco', price: 150 },
 ];
 
 // TODO: re-enable galería cuando tengamos fotos reales del local y los platos.
@@ -289,8 +290,7 @@ const mapaPoi = [
 					<span class="estrella-badge">★ Plato estrella</span>
 					<h3 class="estrella-titulo">Chamorro entero<br />en consomé</h3>
 					<p class="estrella-desc">
-						Chamorro suave o dorado, 48 horas de marinado y ocho horas en
-						caldo de la casa. Servido con:
+						Chamorro suave o dorado, servido con:
 					</p>
 					<ul class="estrella-lista">
 						{estrellaIncluye.map((x) => (
@@ -300,7 +300,7 @@ const mapaPoi = [
 				</div>
 				<div class="estrella-right">
 					<span class="estrella-precio">
-						<span class="estrella-moneda">$</span>120
+						<span class="estrella-moneda">$</span>130
 					</span>
 					<span class="estrella-precio-alt">
 						<span class="estrella-precio-alt-k">o medio por</span>
