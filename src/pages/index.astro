@@ -40,7 +40,6 @@ const tortaAhogada = {
 const chamorroEntero = {
 	name: 'Chamorro entero en consomé',
 	price: 130,
-	medio: 80,
 	detail: 'Chamorro suave, cocinado a fuego lento durante 8 horas, servido con nuestro famoso consomé de la casa (de cortesía), cebolla curtida, salsa, limón, tortillas y arroz.',
 };
 
@@ -272,10 +271,6 @@ const mapaPoi = [
 				<div class="estrella-right">
 					<span class="estrella-precio">
 						<span class="estrella-moneda">$</span>{chamorroEntero.price}
-					</span>
-					<span class="estrella-precio-alt">
-						<span class="estrella-precio-alt-k">o medio por</span>
-						<span class="estrella-precio-alt-v"><span class="estrella-precio-alt-moneda">$</span>{chamorroEntero.medio}</span>
 					</span>
 					<a href="#lugar" class="estrella-cta">Vente por uno</a>
 				</div>
@@ -1203,33 +1198,6 @@ const mapaPoi = [
 		font-size: 0.5em;
 		color: var(--crema);
 		margin-top: 0.15em;
-	}
-	.estrella-precio-alt {
-		display: inline-flex;
-		align-items: baseline;
-		gap: 0.5rem;
-		padding-top: 0.35rem;
-		font-family: var(--body);
-	}
-	.estrella-precio-alt-k {
-		font-size: var(--text-xs);
-		font-weight: 700;
-		letter-spacing: 0.2em;
-		text-transform: uppercase;
-		color: color-mix(in oklab, var(--crema) 60%, transparent);
-	}
-	.estrella-precio-alt-v {
-		font-family: var(--display);
-		font-weight: 900;
-		font-size: var(--text-lg);
-		color: var(--crema);
-		font-variant-numeric: tabular-nums;
-		letter-spacing: -0.01em;
-	}
-	.estrella-precio-alt-moneda {
-		font-size: 0.7em;
-		color: color-mix(in oklab, var(--crema) 65%, transparent);
-		margin-right: 0.05em;
 	}
 	.estrella-cta {
 		display: inline-flex;
