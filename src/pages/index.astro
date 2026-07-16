@@ -7,6 +7,7 @@ import chamorroImg from '../assets/menu/chamorro.jpeg';
 import chamorroHeroImg from '../assets/menu/chamorro-hero.png';
 import tacosDoradosImg from '../assets/menu/tacos-dorados.jpeg';
 import tacosBlanditosImg from '../assets/menu/tacos-blanditos.jpeg';
+import quesamorroImg from '../assets/menu/quesamorro.jpeg';
 
 const horarios = {
 	dias: 'Miércoles a Domingo',
@@ -16,18 +17,26 @@ const horarios = {
 
 const tacos = [
 	{
-		name: 'Taco blandito de Chamorro',
-		price: 25,
-		detail: 'Delicioso taco blandito en tortilla a mano, con carrita de nuestro jugoso chamorro cocinado a fuego lento durante 8 horas.',
-		image: tacosBlanditosImg,
-		alt: 'Tacos blanditos de chamorro en tortilla a mano',
-	},
-	{
 		name: 'Taco doradito de Chamorro',
 		price: 25,
 		detail: 'Taco estilo barbacoa, tortilla tamaño normal, dorado con la grasita que suelta el chamorro al cocinarlo.',
 		image: tacosDoradosImg,
 		alt: 'Tacos dorados de chamorro con consomé',
+	},
+	{
+		name: 'Taco blandito de Chamorro',
+		price: 25,
+		detail: 'Taco blandito en tortilla hecha a mano, con la carnita suavecita de nuestro chamorro. La tortilla puede ser de maíz azul o amarillo, según disponibilidad.',
+		image: tacosBlanditosImg,
+		alt: 'Tacos blanditos de chamorro en tortilla a mano',
+	},
+	{
+		name: 'Quesamorro',
+		price: 30,
+		detail: '¿Has escuchado de las quesabirrias? Pues aquí tenemos los Quesamorros: taquito dorado estilo barbacoa con quesito gratinado. ¡Una verdadera chulada!',
+		image: quesamorroImg,
+		alt: 'Quesamorros dorados con quesito gratinado en plato de barro',
+		pos: '50% 72%',
 	},
 ];
 
@@ -38,14 +47,14 @@ const tortaAhogada = {
 };
 
 const chamorroEntero = {
-	name: 'Chamorro entero en consomé',
+	name: 'Chamorro entero con consomé',
 	price: 130,
 	detail: 'Chamorro suave, cocinado a fuego lento durante 8 horas, servido con nuestro famoso consomé de la casa (de cortesía), cebolla curtida, salsa, limón, tortillas y arroz.',
 };
 
 const bebidas = [
-	{ name: 'Aguas frescas', price: '25 / 45', note: 'vaso / litro' },
-	{ name: 'Refrescos', price: 30 },
+	{ name: 'Aguas frescas 100% naturales', price: '25 / 45', note: '½ litro / litro', detail: 'Jamaica · Limón con chía · Tamarindo' },
+	{ name: 'Refrescos', price: 30, detail: 'Coca-Cola · Coca-Cola sin azúcar' },
 	{ name: 'Agua natural', price: 18 },
 ];
 
@@ -53,6 +62,7 @@ const combos = [
 	{ name: 'Combo tacos', includes: '3 tacos (cualquier combinación suave/dorado) + agua chica o refresco', price: 95 },
 	{ name: 'Combo torta', includes: 'torta ahogada de chamorro + consomé + refresco', price: 100 },
 	{ name: 'Combo chamorro', includes: 'chamorro entero + agua chica o refresco', price: 150 },
+	{ name: 'Combo quesamorro', includes: '3 quesamorros + agua chica o refresco', price: 105 },
 ];
 
 // TODO: re-enable galería cuando tengamos fotos reales del local y los platos.
@@ -100,6 +110,7 @@ const mapaPoi = [
 			<a href="#menu">Menú</a>
 			<a href="#horarios">Horarios</a>
 			<a href="#lugar">Lugar</a>
+			<a href="#delivery">Delivery</a>
 			<a
 				href="https://wa.me/523348475300?text=Hola%2C%20quiero%20pedir%20chamorro"
 				class="nav-cta"
@@ -252,8 +263,8 @@ const mapaPoi = [
 				</div>
 			</article>
 
-			<!-- El Rey — Chamorro entero en consomé -->
-			<article class="estrella estrella-rey" aria-label="El Rey: chamorro entero en consomé">
+			<!-- El Rey — Chamorro entero con consomé -->
+			<article class="estrella estrella-rey" aria-label="El Rey: chamorro entero con consomé">
 				<div class="estrella-media">
 					<Image
 						src={chamorroImg}
@@ -265,7 +276,7 @@ const mapaPoi = [
 				</div>
 				<div class="estrella-left">
 					<span class="estrella-badge">♛ El Rey</span>
-					<h3 class="estrella-titulo">Chamorro entero<br />en consomé</h3>
+					<h3 class="estrella-titulo">Chamorro entero<br />con consomé</h3>
 					<p class="estrella-desc">{chamorroEntero.detail}</p>
 				</div>
 				<div class="estrella-right">
@@ -283,14 +294,19 @@ const mapaPoi = [
 					<ul class="menu-col-list">
 						{tacos.map((t) => (
 							<li class="taco-item">
-								<div class="taco-thumb">
-									<Image
-										src={t.image}
-										alt={t.alt}
-										widths={[160, 240, 320]}
-										sizes="(min-width: 720px) 140px, 110px"
-										class="taco-thumb-img"
-									/>
+								<div class={t.image ? 'taco-thumb' : 'taco-thumb taco-thumb-empty'}>
+									{t.image ? (
+										<Image
+											src={t.image}
+											alt={t.alt}
+											widths={[160, 240, 320]}
+											sizes="(min-width: 720px) 140px, 110px"
+											class="taco-thumb-img"
+											style={t.pos ? `object-position: ${t.pos}` : undefined}
+										/>
+									) : (
+										<span class="taco-thumb-badge" aria-hidden="true">Nuevo</span>
+									)}
 								</div>
 								<div class="taco-body">
 									<div class="menu-col-line">
@@ -310,13 +326,16 @@ const mapaPoi = [
 					<h3 class="menu-col-titulo">Bebidas</h3>
 					<ul class="menu-col-list">
 						{bebidas.map((b) => (
-							<li class="menu-col-item">
-								<span>
-									{b.name}
-									{b.note && <span class="menu-nota"> · {b.note}</span>}
-								</span>
-								<span class="leader" aria-hidden="true"></span>
-								<span class="precio">${b.price}</span>
+							<li class="bebida-item">
+								<div class="menu-col-line">
+									<span class="menu-col-name">
+										{b.name}
+										{b.note && <span class="menu-nota"> · {b.note}</span>}
+									</span>
+									<span class="leader" aria-hidden="true"></span>
+									<span class="precio">${b.price}</span>
+								</div>
+								{b.detail && <p class="menu-col-detail">{b.detail}</p>}
 							</li>
 						))}
 					</ul>
@@ -341,6 +360,58 @@ const mapaPoi = [
 						</article>
 					))}
 				</div>
+			</div>
+		</section>
+
+		<!-- =========================================================
+			DELIVERY — pide a domicilio
+		========================================================== -->
+		<section class="delivery" id="delivery" aria-labelledby="delivery-heading">
+			<div class="delivery-inner">
+				<div class="delivery-head">
+					<span class="section-num">№ 03 · A domicilio</span>
+					<h2 id="delivery-heading" class="delivery-titulo">Pide por delivery</h2>
+					<p class="delivery-sub">
+						¿No puedes venir al distrito? Te llevamos el chamorro hasta la puerta.
+						Pídelo en <strong>Uber Eats</strong>, <strong>DiDi Food</strong> o <strong>Rappi</strong>.
+					</p>
+				</div>
+
+				<ul class="delivery-apps">
+					<li>
+						<a
+							class="app-card"
+							href="https://www.ubereats.com/store/distrito-chamorro-guadalajara/x-76WQvDUmmrywqDtzOmoQ"
+							target="_blank"
+							rel="noopener"
+							aria-label="Pedir en Uber Eats (abre en una pestaña nueva)"
+						>
+							<img src="/delivery/ubereats.svg" alt="Uber Eats" class="app-logo app-logo-uber" width="146" height="24" loading="lazy" decoding="async" />
+						</a>
+					</li>
+					<li>
+						<a
+							class="app-card"
+							href="https://www.didi-food.com/es-MX/food/store/5764613591823811544/Distrito-Chamorro"
+							target="_blank"
+							rel="noopener"
+							aria-label="Pedir en DiDi Food (abre en una pestaña nueva)"
+						>
+							<img src="/delivery/didi.svg" alt="DiDi Food" class="app-logo app-logo-didi" width="99" height="29" loading="lazy" decoding="async" />
+						</a>
+					</li>
+					<li>
+						<a
+							class="app-card"
+							href="https://www.rappi.com.mx/restaurantes/1930424606-distrito-chamorro"
+							target="_blank"
+							rel="noopener"
+							aria-label="Pedir en Rappi (abre en una pestaña nueva)"
+						>
+							<img src="/delivery/rappi.svg" alt="Rappi" class="app-logo app-logo-rappi" width="100" height="42" loading="lazy" decoding="async" />
+						</a>
+					</li>
+				</ul>
 			</div>
 		</section>
 
@@ -372,7 +443,7 @@ const mapaPoi = [
 		========================================================== -->
 		<section class="lugar" id="lugar" aria-labelledby="lugar-heading">
 			<div class="lugar-head">
-				<span class="section-num">№ 03 · Ubicación</span>
+				<span class="section-num">№ 04 · Ubicación</span>
 				<h2 id="lugar-heading" class="lugar-titulo">Vente al distrito</h2>
 			</div>
 
@@ -642,7 +713,8 @@ const mapaPoi = [
 	}
 	@media (max-width: 560px) {
 		.nav-links a[href="#horarios"],
-		.nav-links a[href="#lugar"] {
+		.nav-links a[href="#lugar"],
+		.nav-links a[href="#delivery"] {
 			display: none;
 		}
 	}
@@ -1286,6 +1358,34 @@ const mapaPoi = [
 		object-fit: cover;
 		display: block;
 	}
+	/* Placeholder tile for items still without a real photo (e.g. Quesamorro). */
+	.taco-thumb-empty {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background:
+			radial-gradient(120% 120% at 28% 22%, color-mix(in oklab, var(--consome) 45%, var(--brand)) 0%, var(--brand) 72%);
+	}
+	.taco-thumb-badge {
+		font-family: var(--display);
+		font-weight: 800;
+		font-size: var(--text-xs);
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		color: var(--crema);
+		border: 1.5px solid color-mix(in oklab, var(--crema) 55%, transparent);
+		padding: 0.35em 0.75em;
+		border-radius: 999px;
+	}
+	.bebida-item {
+		display: grid;
+		gap: 0.3rem;
+		padding: var(--space-sm) 0;
+		border-bottom: 1px dashed color-mix(in oklab, var(--linea) 70%, transparent);
+	}
+	.bebida-item:last-child {
+		border-bottom: none;
+	}
 	.taco-body {
 		display: grid;
 		gap: 0.35rem;
@@ -1398,6 +1498,108 @@ const mapaPoi = [
 		font-size: 0.55em;
 		color: var(--fg-soft);
 		margin-right: 0.05em;
+	}
+
+	/* ============================================================
+	   DELIVERY — pide a domicilio
+	   ============================================================ */
+	.delivery {
+		padding: var(--space-lg) clamp(var(--space-md), 4vw, var(--space-2xl)) var(--space-3xl);
+		max-width: 1300px;
+		margin: 0 auto;
+	}
+	.delivery-inner {
+		position: relative;
+		display: grid;
+		gap: var(--space-xl);
+		padding: clamp(var(--space-lg), 4vw, var(--space-2xl));
+		border-radius: 10px;
+		border: 1px solid var(--linea);
+		background:
+			radial-gradient(130% 150% at 100% 0%, color-mix(in oklab, var(--consome) 12%, transparent) 0%, transparent 55%),
+			var(--crema-hondo);
+		overflow: hidden;
+	}
+	.delivery-head {
+		display: grid;
+		gap: var(--space-2xs);
+		max-width: 58ch;
+	}
+	.delivery-titulo {
+		font-family: var(--display);
+		font-weight: 900;
+		font-size: var(--text-xl);
+		line-height: 0.92;
+		text-transform: uppercase;
+		color: var(--cafe);
+		margin: var(--space-2xs) 0 0;
+	}
+	.delivery-sub {
+		font-size: var(--text-md);
+		line-height: 1.45;
+		color: var(--fg-muted);
+		margin: var(--space-2xs) 0 0;
+	}
+	.delivery-sub strong {
+		color: var(--cafe);
+		font-weight: 700;
+	}
+
+	.delivery-apps {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--space-md);
+	}
+	@media (max-width: 620px) {
+		.delivery-apps {
+			grid-template-columns: 1fr;
+		}
+	}
+	.app-card {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 104px;
+		padding: var(--space-lg) var(--space-md);
+		background: var(--papel);
+		border: 1px solid var(--linea);
+		border-radius: 8px;
+		text-decoration: none;
+		box-shadow: 0 1px 0 rgba(43, 26, 20, 0.03);
+		transition: transform 240ms var(--ease-out), box-shadow 240ms var(--ease-out),
+			border-color 240ms var(--ease-out);
+	}
+	.app-card:hover {
+		transform: translateY(-4px);
+		border-color: color-mix(in oklab, var(--brand) 45%, var(--linea));
+		box-shadow: 0 22px 42px -22px rgba(140, 58, 33, 0.42);
+	}
+	.app-logo {
+		width: auto;
+		height: auto;
+		display: block;
+	}
+	/* Optically balanced across the three wordmarks (Uber Eats is long, so it
+	   rides a touch shorter than the DiDi / Rappi marks). */
+	.app-logo-uber {
+		max-height: 22px;
+		max-width: 168px;
+	}
+	.app-logo-didi {
+		max-height: 30px;
+		max-width: 112px;
+	}
+	.app-logo-rappi {
+		max-height: 32px;
+		max-width: 92px;
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.app-card:hover {
+			transform: none;
+		}
 	}
 
 	/* ============================================================
