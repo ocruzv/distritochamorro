@@ -26,6 +26,7 @@ Expresión:
 ```
 
 Reescribir la ruta a `/index.md` (Static) y conservar la query string.
+En el formulario, escribir `index.md`: el campo ya muestra el prefijo `/`.
 Es una reescritura interna, no una redirección.
 
 Se atiende la solicitud explícita `Accept: text/markdown`. Otras cabeceras,
@@ -52,19 +53,17 @@ Encabezados:
 ocurre antes de la caché de Cloudflare, por lo que HTML y Markdown tienen rutas
 de caché distintas. No configurar una clave de caché que vuelva a unirlas.
 
-### Response Header Transform Rule: Distrito Chamorro - Markdown type
-
-Expresión:
-
-```text
-(http.host eq "distritochamorro.com" and http.request.uri.path eq "/index.md")
-```
-
-Set static `Content-Type` a `text/markdown; charset=utf-8`.
-GitHub Pages sirve archivos estáticos y no conserva los encabezados de la
-`Response` de Astro; el tipo MIME se asegura en Cloudflare.
+GitHub Pages devuelve `/index.md` con `Content-Type: text/markdown; charset=utf-8`;
+no hace falta una regla adicional para el tipo MIME. Los encabezados declarados
+en la `Response` de Astro sirven durante desarrollo, pero en producción los
+encabezados los determina GitHub Pages y Cloudflare.
 
 ## Verificación después de publicar
+
+Configuración aplicada y verificada el 29 de septiembre de 2026: Quick Wins 5/5
+y Technical Groundwork 1/3 (Link Headers) en Cloudflare Diagnostics.
+Se comprobaron respuestas GET/HEAD, el acceso directo al Markdown, query strings,
+HTML predeterminado y la exclusión explícita de Markdown con `q=0`.
 
 ```sh
 curl -sS -D - https://distritochamorro.com/ -o /dev/null
