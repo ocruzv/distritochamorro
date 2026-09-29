@@ -1,7 +1,11 @@
+# Permitimos búsqueda y uso del contenido para responder consultas.
+# La preferencia sobre entrenamiento (ai-train) no se declara.
 User-agent: OAI-SearchBot
+Content-Signal: search=yes, ai-input=yes
 Allow: /
 
 User-agent: *
+Content-Signal: search=yes, ai-input=yes
 Allow: /
 
 Sitemap: https://distritochamorro.com/sitemap.xml

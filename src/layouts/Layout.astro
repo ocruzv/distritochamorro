@@ -20,6 +20,9 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="description" content={description} />
 		<link rel="canonical" href={canonicalUrl} />
+		{Astro.url.pathname === '/' && (
+			<link rel="alternate" type="text/markdown" href={new URL('/index.md', Astro.site).href} title="Menú y datos de Distrito Chamorro en Markdown" />
+		)}
 		<meta name="theme-color" content="#F2E6D8" />
 		<meta property="og:type" content="restaurant.restaurant" />
 		<meta property="og:title" content={title} />
