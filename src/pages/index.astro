@@ -13,6 +13,9 @@ const horarios = {
 	dias: 'Miércoles a Domingo',
 	horas: '10:00 AM — 4:00 PM',
 	cerrado: 'Lunes y Martes',
+	diasSemana: ['Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+	apertura: '10:00',
+	cierre: '16:00',
 };
 
 const tacos = [
@@ -53,9 +56,9 @@ const chamorroEntero = {
 };
 
 const bebidas = [
-	{ name: 'Aguas frescas 100% naturales', price: '25 / 45', note: '½ litro / litro', detail: 'Jamaica · Limón con chía · Tamarindo' },
-	{ name: 'Refrescos', price: 30, detail: 'Coca-Cola · Coca-Cola sin azúcar' },
-	{ name: 'Agua natural', price: 18 },
+	{ name: 'Aguas frescas 100% naturales', prices: [{ name: '½ litro', price: 25 }, { name: '1 litro', price: 45 }], note: '½ litro / litro', detail: 'Jamaica · Limón con chía · Tamarindo' },
+	{ name: 'Refrescos', prices: [{ name: 'Refresco', price: 30 }], detail: 'Coca-Cola · Coca-Cola sin azúcar' },
+	{ name: 'Agua natural', prices: [{ name: 'Agua natural', price: 18 }] },
 ];
 
 const combos = [
@@ -77,7 +80,82 @@ const direccion = {
 	calle: 'Isla Cozumel 2670',
 	colonia: 'Col. Jardines de la Cruz',
 	ciudad: 'Guadalajara, Jal.',
-	maps: 'https://www.google.com/maps/search/?api=1&query=Isla+Cozumel+2670+Jardines+de+la+Cruz+Guadalajara',
+	codigoPostal: '44950',
+	// Ficha del negocio verificada en Maps; no es una búsqueda de la dirección.
+	maps: 'https://www.google.com/maps/place/Distrito+chamorro/@20.6453932,-103.3783167,17z/data=!3m1!4b1!4m6!3m5!1s0x8428ad007aeeece9:0xc301c0bfb13ccc3e!8m2!3d20.6453932!4d-103.3783167!16s%2Fg%2F11z5886pgt',
+};
+
+const siteUrl = new URL('/', Astro.site).href;
+const menuUrl = `${siteUrl}#menu`;
+const menuItem = (item: { name: string; detail?: string; price: number }) => ({
+	'@type': 'MenuItem',
+	name: item.name,
+	description: item.detail,
+	offers: { '@type': 'Offer', price: item.price, priceCurrency: 'MXN' },
+});
+
+// Los platos y precios se generan desde los mismos datos que el menú visible.
+const structuredData = {
+	'@context': 'https://schema.org',
+	'@graph': [
+		{
+			'@type': 'Restaurant',
+			'@id': `${siteUrl}#restaurante`,
+			name: 'Distrito Chamorro',
+			url: siteUrl,
+			description: 'Chamorro entero con consomé, tacos y tortas de chamorro en Jardines de la Cruz, Guadalajara. Para comer en el local, llevar o pedir a domicilio.',
+			image: [new URL(chamorroImg.src, siteUrl).href, new URL(tortaAhogadaImg.src, siteUrl).href],
+			logo: new URL(logo.src, siteUrl).href,
+			telephone: '+523348475300',
+			servesCuisine: 'Mexicana',
+			address: {
+				'@type': 'PostalAddress',
+				streetAddress: `${direccion.calle}, ${direccion.colonia}`,
+				addressLocality: 'Guadalajara',
+				addressRegion: 'Jalisco',
+				postalCode: direccion.codigoPostal,
+				addressCountry: 'MX',
+			},
+			geo: { '@type': 'GeoCoordinates', latitude: 20.6453932, longitude: -103.3783167 },
+			hasMap: direccion.maps,
+			openingHoursSpecification: [{
+				'@type': 'OpeningHoursSpecification',
+				dayOfWeek: horarios.diasSemana.map((day) => `https://schema.org/${day}`),
+				opens: horarios.apertura,
+				closes: horarios.cierre,
+			}],
+			hasMenu: { '@id': menuUrl },
+			sameAs: [
+				direccion.maps,
+				'https://instagram.com/distritochamorro',
+				'https://facebook.com/distritochamorro',
+				'https://tiktok.com/@distritochamorro',
+			],
+		},
+		{
+			'@type': 'Menu',
+			'@id': menuUrl,
+			name: 'Menú de Distrito Chamorro',
+			url: menuUrl,
+			inLanguage: 'es-MX',
+			description: 'Precios del menú en el local, en pesos mexicanos. Los precios en plataformas de reparto pueden variar.',
+			hasMenuSection: [
+				{ '@type': 'MenuSection', name: 'Chamorro y torta ahogada', hasMenuItem: [tortaAhogada, chamorroEntero].map(menuItem) },
+				{ '@type': 'MenuSection', name: 'Tacos de chamorro', hasMenuItem: tacos.map(menuItem) },
+				{ '@type': 'MenuSection', name: 'Combos', hasMenuItem: combos.map((combo) => menuItem({ ...combo, detail: combo.includes })) },
+				{
+					'@type': 'MenuSection',
+					name: 'Bebidas',
+					hasMenuItem: bebidas.map((bebida) => ({
+						'@type': 'MenuItem',
+						name: bebida.name,
+						description: bebida.detail,
+						offers: bebida.prices.map((price) => ({ '@type': 'Offer', ...price, priceCurrency: 'MXN' })),
+					})),
+				},
+			],
+		},
+	],
 };
 
 // Croquis grid — blocks drawn programmatically so the diagonal grid stays
@@ -98,7 +176,7 @@ const mapaPoi = [
 ];
 ---
 
-<Layout>
+<Layout structuredData={structuredData}>
 	<!-- =========================================================
 		NAV
 	========================================================== -->
@@ -145,8 +223,11 @@ const mapaPoi = [
 					</h1>
 
 					<p class="hero-sub">
-						Tacos, tortas y chamorro en consomé.<br />
-						Hecho en Guadalajara.
+						Chamorro entero con consomé, tacos y tortas de chamorro
+						en Jardines de la Cruz, Guadalajara.
+					</p>
+					<p class="hero-address">
+						<a href="#lugar">Distrito Chamorro · {direccion.calle}</a>
 					</p>
 
 					<div class="hero-ctas">
@@ -236,7 +317,10 @@ const mapaPoi = [
 			<div class="menu-head">
 				<span class="section-num">№ 02 · La carta</span>
 				<h2 id="menu-heading" class="menu-titulo">El menú</h2>
-				<p class="menu-sub">Precios en pesos. Servicio no incluido.</p>
+				<p class="menu-sub">
+					Precios del menú en el local, en pesos mexicanos (MXN). Servicio no incluido.<br />
+					Los precios en plataformas de reparto pueden variar; consulta el total antes de pedir.
+				</p>
 			</div>
 
 			<!-- Plato estrella — Torta Ahogada -->
@@ -333,7 +417,7 @@ const mapaPoi = [
 										{b.note && <span class="menu-nota"> · {b.note}</span>}
 									</span>
 									<span class="leader" aria-hidden="true"></span>
-									<span class="precio">${b.price}</span>
+									<span class="precio">${b.prices.map((p) => p.price).join(' / ')}</span>
 								</div>
 								{b.detail && <p class="menu-col-detail">{b.detail}</p>}
 							</li>
@@ -370,23 +454,25 @@ const mapaPoi = [
 			<div class="delivery-inner">
 				<div class="delivery-head">
 					<span class="section-num">№ 03 · A domicilio</span>
-					<h2 id="delivery-heading" class="delivery-titulo">Pide por delivery</h2>
+					<h2 id="delivery-heading" class="delivery-titulo">Chamorros a domicilio</h2>
 					<p class="delivery-sub">
 						¿No puedes venir al distrito? Te llevamos el chamorro hasta la puerta.
 						Pídelo en <strong>Uber Eats</strong>, <strong>DiDi Food</strong> o <strong>Rappi</strong>.
 					</p>
+					<p class="delivery-note">Ingresa tu dirección en la app para consultar cobertura, horario de entrega y costo de envío.</p>
 				</div>
 
 				<ul class="delivery-apps">
 					<li>
 						<a
 							class="app-card"
-							href="https://www.ubereats.com/store/distrito-chamorro-guadalajara/x-76WQvDUmmrywqDtzOmoQ"
+							href="https://www.ubereats.com/mx/store/distrito-chamorro-guadalajara/x-76WQvDUmmrywqDtzOmoQ"
 							target="_blank"
 							rel="noopener"
 							aria-label="Pedir en Uber Eats (abre en una pestaña nueva)"
 						>
-							<img src="/delivery/ubereats.svg" alt="Uber Eats" class="app-logo app-logo-uber" width="146" height="24" loading="lazy" decoding="async" />
+							<img src="/delivery/ubereats.svg" alt="" class="app-logo app-logo-uber" width="146" height="24" loading="lazy" decoding="async" />
+							<span class="app-label">Pedir en Uber Eats</span>
 						</a>
 					</li>
 					<li>
@@ -397,7 +483,8 @@ const mapaPoi = [
 							rel="noopener"
 							aria-label="Pedir en DiDi Food (abre en una pestaña nueva)"
 						>
-							<img src="/delivery/didi.svg" alt="DiDi Food" class="app-logo app-logo-didi" width="99" height="29" loading="lazy" decoding="async" />
+							<img src="/delivery/didi.svg" alt="" class="app-logo app-logo-didi" width="99" height="29" loading="lazy" decoding="async" />
+							<span class="app-label">Pedir en DiDi Food</span>
 						</a>
 					</li>
 					<li>
@@ -408,7 +495,8 @@ const mapaPoi = [
 							rel="noopener"
 							aria-label="Pedir en Rappi (abre en una pestaña nueva)"
 						>
-							<img src="/delivery/rappi.svg" alt="Rappi" class="app-logo app-logo-rappi" width="100" height="42" loading="lazy" decoding="async" />
+							<img src="/delivery/rappi.svg" alt="" class="app-logo app-logo-rappi" width="100" height="42" loading="lazy" decoding="async" />
+							<span class="app-label">Pedir en Rappi</span>
 						</a>
 					</li>
 				</ul>
@@ -453,10 +541,10 @@ const mapaPoi = [
 					<p class="info-dir">
 						<strong>{direccion.calle}</strong><br />
 						{direccion.colonia}<br />
-						{direccion.ciudad}
+						{direccion.ciudad} · C.P. {direccion.codigoPostal}
 					</p>
 					<a href={direccion.maps} class="info-cta" target="_blank" rel="noopener">
-						Abrir en Google Maps
+						Ver Distrito Chamorro en Google Maps
 						<svg viewBox="0 0 20 20" aria-hidden="true" class="info-cta-arrow">
 							<path d="M5 15 L15 5 M8 5 H15 V12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" />
 						</svg>
@@ -585,6 +673,9 @@ const mapaPoi = [
 							<a href="mailto:hola@distritochamorro.mx">hola@distritochamorro.mx</a>
 						</li>
 					</ul>
+					<p class="info-review">
+						¿Ya nos visitaste? <a href={direccion.maps} target="_blank" rel="noopener">Cuéntanos tu experiencia en Google Maps.</a>
+					</p>
 				</div>
 
 				<div class="info-block info-redes">
@@ -806,8 +897,16 @@ const mapaPoi = [
 		line-height: 1.35;
 		color: var(--fg-muted);
 		max-width: 34ch;
-		margin: 0 0 var(--space-lg);
+		margin: 0 0 var(--space-xs);
 		font-weight: 500;
+	}
+	.hero-address {
+		font-size: var(--text-sm);
+		color: var(--fg-muted);
+		margin: 0 0 var(--space-lg);
+	}
+	.hero-address a {
+		text-underline-offset: 0.2em;
 	}
 
 	.hero-ctas {
@@ -1544,6 +1643,11 @@ const mapaPoi = [
 		color: var(--cafe);
 		font-weight: 700;
 	}
+	.delivery-note {
+		font-size: var(--text-sm);
+		color: var(--fg-muted);
+		margin: var(--space-xs) 0 0;
+	}
 
 	.delivery-apps {
 		list-style: none;
@@ -1560,6 +1664,8 @@ const mapaPoi = [
 	}
 	.app-card {
 		display: flex;
+		flex-direction: column;
+		gap: var(--space-sm);
 		align-items: center;
 		justify-content: center;
 		min-height: 104px;
@@ -1581,6 +1687,11 @@ const mapaPoi = [
 		width: auto;
 		height: auto;
 		display: block;
+	}
+	.app-label {
+		font-size: var(--text-sm);
+		font-weight: 700;
+		color: var(--brand);
 	}
 	/* Optically balanced across the three wordmarks (Uber Eats is long, so it
 	   rides a touch shorter than the DiDi / Rappi marks). */
@@ -1829,6 +1940,15 @@ const mapaPoi = [
 	.info-list a:hover,
 	.info-redes a:hover {
 		color: var(--brand);
+	}
+	.info-review {
+		font-size: var(--text-sm);
+		color: var(--fg-muted);
+		max-width: 36ch;
+		margin: var(--space-md) 0 0;
+	}
+	.info-review a {
+		text-underline-offset: 0.2em;
 	}
 
 	.lugar-mapa {
