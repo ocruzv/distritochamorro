@@ -28,7 +28,7 @@ export const tacos = [
 	},
 	{
 		name: 'Quesamorro',
-		price: 30,
+		price: 35,
 		detail: '¿Has escuchado de las quesabirrias? Pues aquí tenemos los Quesamorros: taquito dorado estilo barbacoa con quesito gratinado. ¡Una verdadera chulada!',
 		image: quesamorroImg,
 		alt: 'Quesamorros dorados con quesito gratinado en plato de barro',
@@ -44,21 +44,21 @@ export const tortaAhogada = {
 
 export const chamorroEntero = {
 	name: 'Chamorro entero con consomé',
-	price: 130,
+	price: 150,
 	detail: 'Chamorro suave, cocinado a fuego lento durante 8 horas, servido con nuestro famoso consomé de la casa (de cortesía), cebolla curtida, salsa, limón, tortillas y arroz.',
 };
 
 export const bebidas = [
 	{ name: 'Aguas frescas 100% naturales', prices: [{ name: '½ litro', price: 25 }, { name: '1 litro', price: 45 }], note: '½ litro / litro', detail: 'Jamaica · Limón con chía · Tamarindo' },
 	{ name: 'Refrescos', prices: [{ name: 'Refresco', price: 30 }], detail: 'Coca-Cola · Coca-Cola sin azúcar' },
-	{ name: 'Agua natural', prices: [{ name: 'Agua natural', price: 18 }] },
+	{ name: 'Agua natural', prices: [{ name: 'Agua natural', price: 20 }] },
 ];
 
 export const combos = [
 	{ name: 'Combo tacos', includes: '3 tacos (cualquier combinación suave/dorado) + agua chica o refresco', price: 95 },
 	{ name: 'Combo torta', includes: 'torta ahogada de chamorro + consomé + refresco', price: 100 },
-	{ name: 'Combo chamorro', includes: 'chamorro entero + agua chica o refresco', price: 150 },
-	{ name: 'Combo quesamorro', includes: '3 quesamorros + agua chica o refresco', price: 105 },
+	{ name: 'Combo chamorro', includes: 'chamorro entero + agua chica o refresco', price: 165 },
+	{ name: 'Combo quesamorro', includes: '3 quesamorros + agua chica o refresco', price: 115 },
 ];
 
 export const direccion = {
