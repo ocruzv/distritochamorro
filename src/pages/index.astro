@@ -6,7 +6,7 @@ import tortaAhogadaImg from '../assets/menu/torta-ahogada.jpeg';
 import chamorroImg from '../assets/menu/chamorro.jpeg';
 import chamorroHeroImg from '../assets/menu/chamorro-hero.png';
 
-import { horarios, tacos, tortaAhogada, chamorroEntero, bebidas, combos, direccion, contacto, reparto, redes } from '../data/restaurante';
+import { horarios, tacos, tortaAhogada, chamorroEntero, molletes, bebidas, extras, combos, direccion, contacto, reparto, redes } from '../data/restaurante';
 
 const siteUrl = new URL('/', Astro.site).href;
 const menuUrl = `${siteUrl}#menu`;
@@ -63,6 +63,7 @@ const structuredData = {
 			hasMenuSection: [
 				{ '@type': 'MenuSection', name: 'Chamorro y torta ahogada', hasMenuItem: [tortaAhogada, chamorroEntero].map(menuItem) },
 				{ '@type': 'MenuSection', name: 'Tacos de chamorro', hasMenuItem: tacos.map(menuItem) },
+				{ '@type': 'MenuSection', name: 'Molletes', hasMenuItem: molletes.map(menuItem) },
 				{ '@type': 'MenuSection', name: 'Combos', hasMenuItem: combos.map((combo) => menuItem({ ...combo, detail: combo.includes })) },
 				{
 					'@type': 'MenuSection',
@@ -74,6 +75,7 @@ const structuredData = {
 						offers: bebida.prices.map((price) => ({ '@type': 'Offer', ...price, priceCurrency: 'MXN' })),
 					})),
 				},
+				{ '@type': 'MenuSection', name: 'Para acompañar', hasMenuItem: extras.map(menuItem) },
 			],
 		},
 	],
@@ -326,6 +328,23 @@ const mapaPoi = [
 					</ul>
 				</div>
 
+				<!-- MOLLETES -->
+				<div class="menu-col">
+					<h3 class="menu-col-titulo">Molletes</h3>
+					<ul class="menu-col-list">
+						{molletes.map((item) => (
+							<li class="bebida-item">
+								<div class="menu-col-line">
+									<span class="menu-col-name">{item.name}</span>
+									<span class="leader" aria-hidden="true"></span>
+									<span class="precio">${item.price}</span>
+								</div>
+								<p class="menu-col-detail">{item.detail}</p>
+							</li>
+						))}
+					</ul>
+				</div>
+
 				<!-- BEBIDAS -->
 				<div class="menu-col">
 					<h3 class="menu-col-titulo">Bebidas</h3>
@@ -341,6 +360,22 @@ const mapaPoi = [
 									<span class="precio">${b.prices.map((p) => p.price).join(' / ')}</span>
 								</div>
 								{b.detail && <p class="menu-col-detail">{b.detail}</p>}
+							</li>
+						))}
+					</ul>
+				</div>
+
+				<!-- EXTRAS -->
+				<div class="menu-col">
+					<h3 class="menu-col-titulo">Para acompañar</h3>
+					<ul class="menu-col-list">
+						{extras.map((item) => (
+							<li class="bebida-item">
+								<div class="menu-col-line">
+									<span class="menu-col-name">{item.name}</span>
+									<span class="leader" aria-hidden="true"></span>
+									<span class="precio">${item.price}</span>
+								</div>
 							</li>
 						))}
 					</ul>

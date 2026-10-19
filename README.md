@@ -37,7 +37,7 @@ public/
 
 ## Cómo editar
 
-- **Menú, precios, combos**: `tacos`, `tortaAhogada`, `chamorroEntero`, `bebidas` y `combos` en `src/data/restaurante.ts`. Alimentan la página, los datos estructurados y `/index.md`. Los precios corresponden al local; las plataformas de reparto pueden tener precios distintos.
+- **Menú, precios, combos**: `tacos`, `tortaAhogada`, `chamorroEntero`, `molletes`, `bebidas`, `extras` y `combos` en `src/data/restaurante.ts`. Alimentan la página, los datos estructurados y `/index.md`. Los precios corresponden al local; las plataformas de reparto pueden tener precios distintos.
 - **Horarios**: objeto `horarios` en el mismo archivo. Mantener sincronizados el texto visible y los campos `diasSemana`, `apertura` y `cierre` usados en los datos estructurados.
 - **Dirección**: objeto `direccion` (alimenta la ficha de contacto, el croquis y el pie).
 - **Contacto y plataformas**: `contacto`, `reparto` y `redes` en `src/data/restaurante.ts`.

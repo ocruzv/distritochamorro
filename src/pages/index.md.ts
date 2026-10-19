@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { horarios, tacos, tortaAhogada, chamorroEntero, bebidas, combos, direccion, contacto, reparto, redes } from '../data/restaurante';
+import { horarios, tacos, tortaAhogada, chamorroEntero, molletes, bebidas, extras, combos, direccion, contacto, reparto, redes } from '../data/restaurante';
 
 const plato = (item: { name: string; price: number; detail?: string }) =>
 	`### ${item.name}\n\nPrecio: $${item.price} MXN.${item.detail ? `\n\n${item.detail}` : ''}`;
@@ -36,7 +36,7 @@ Chamorro entero con consomé, tacos y tortas de chamorro en Jardines de la Cruz,
 
 Precios del menú en el local, en pesos mexicanos (MXN). Servicio no incluido. Los precios en plataformas de reparto pueden variar; consulta el total antes de pedir.
 
-${[tortaAhogada, chamorroEntero, ...tacos].map(plato).join('\n\n')}
+${[tortaAhogada, chamorroEntero, ...tacos, ...molletes].map(plato).join('\n\n')}
 
 ## Combos
 
@@ -45,6 +45,10 @@ ${combos.map((combo) => plato({ ...combo, detail: combo.includes })).join('\n\n'
 ## Bebidas
 
 ${bebidas.map((bebida) => `### ${bebida.name}\n\n${bebida.prices.map((precio) => `- ${precio.name}: $${precio.price} MXN.`).join('\n')}${bebida.detail ? `\n\n${bebida.detail}` : ''}`).join('\n\n')}
+
+## Para acompañar
+
+${extras.map(plato).join('\n\n')}
 
 ## Pedidos a domicilio
 

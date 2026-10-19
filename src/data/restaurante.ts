@@ -48,10 +48,27 @@ export const chamorroEntero = {
 	detail: 'Chamorro suave, cocinado a fuego lento durante 8 horas, servido con nuestro famoso consomé de la casa (de cortesía), cebolla curtida, salsa, limón, tortillas y arroz.',
 };
 
+export const molletes = [
+	{
+		name: 'Molletes con carne',
+		price: 70,
+		detail: 'Bolillo con frijolitos, chamorro y queso gratinado',
+	},
+	{
+		name: 'Molletes sencillos',
+		price: 50,
+		detail: 'Bolillo con frijolitos y queso gratinado',
+	},
+];
+
 export const bebidas = [
 	{ name: 'Aguas frescas 100% naturales', prices: [{ name: '½ litro', price: 25 }, { name: '1 litro', price: 45 }], note: '½ litro / litro', detail: 'Jamaica · Limón con chía · Tamarindo' },
 	{ name: 'Refrescos', prices: [{ name: 'Refresco', price: 30 }], detail: 'Coca-Cola · Coca-Cola sin azúcar' },
 	{ name: 'Agua natural', prices: [{ name: 'Agua natural', price: 20 }] },
+];
+
+export const extras = [
+	{ name: 'Frijolitos', price: 35 },
 ];
 
 export const combos = [
@@ -59,6 +76,7 @@ export const combos = [
 	{ name: 'Combo torta', includes: 'torta ahogada de chamorro + consomé + refresco', price: 100 },
 	{ name: 'Combo chamorro', includes: 'chamorro entero + agua chica o refresco', price: 165 },
 	{ name: 'Combo quesamorro', includes: '3 quesamorros + agua chica o refresco', price: 115 },
+	{ name: 'Combo variadito', includes: '2 tacos dorados, 2 quesamorros y 1 torta ahogada', price: 175 },
 ];
 
 export const direccion = {
