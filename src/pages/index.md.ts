@@ -30,7 +30,7 @@ Chamorro entero con consomé, tacos y tortas de chamorro en Jardines de la Cruz,
 ## Horarios del local
 
 - ${horarios.dias}: ${horarios.horas} (hora local de Guadalajara, America/Mexico_City).
-- Cerrado: ${horarios.cerrado}.
+- Abrimos todos los días, sin días de descanso.
 
 ## Menú
 

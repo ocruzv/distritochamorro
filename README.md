@@ -3,7 +3,7 @@
 Sitio web de **Distrito Chamorro** — chamorrería en Guadalajara, Jalisco. "Chamorro que empodera."
 
 Isla Cozumel 2670, Col. Jardines de la Cruz, Guadalajara, Jal.
-Miércoles a Domingo · 10:00 AM – 4:00 PM
+Lunes a Domingo · 10:00 AM – 4:00 PM
 
 ## Stack
 

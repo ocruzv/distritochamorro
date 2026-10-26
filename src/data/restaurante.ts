@@ -3,10 +3,10 @@ import tacosBlanditosImg from '../assets/menu/tacos-blanditos.jpeg';
 import quesamorroImg from '../assets/menu/quesamorro.jpeg';
 
 export const horarios = {
-	dias: 'Miércoles a Domingo',
+	dias: 'Lunes a Domingo',
 	horas: '10:00 AM — 4:00 PM',
-	cerrado: 'Lunes y Martes',
-	diasSemana: ['Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+	descanso: 'Ni un día de descanso',
+	diasSemana: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
 	apertura: '10:00',
 	cierre: '16:00',
 };
